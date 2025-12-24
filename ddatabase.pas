@@ -15,6 +15,10 @@ var userusing,curendir:string;
     memoryinteger:array[1..seperate_words_strength] of integer;
 label exit_program,exit_program_nosave,exit_express;
 
+function A(const S: string): PAnsiChar;
+begin
+  Result := PAnsiChar(AnsiString(S));
+end;
 
 
 procedure seperate_words (bufstr4:string);
