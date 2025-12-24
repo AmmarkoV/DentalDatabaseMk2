@@ -1,0 +1,60 @@
+{*id=aps2*
+[bk(123,123,0)]
+[length(98)]
+[width(93)]
+&
+c0,0,0c123,92,0i	,(i	,)i	,3i	,4i, i,<i,i,Bi,i,Ei(,i(,Ti8,i?,Ii@,iH,@iJ,=iK,;iL,#iM,&iN,-iN,.iN,/c255,0,0i
+,(i
+,)i
+,*i
+,+i
+,+i
+,-i
+,.i
+,/i
+,0i
+,1i
+,2i
+,3i
+,4i,$i,%i,&i,'i,(i,)i,*i,+i,+i,-i,.i,/i,0i,1i,2i,3i,4i,5i,6i,7i,8i, i,!i,"i,#i,$i,%i,&i,'i,(i,)i,*i,+i,+i,-i,.i,/i,0i,1i,2i,3i,4i,5i,6i,7i,8i,9i,:i,;i,<i,i,i, i,!i,"i,#i,$i,%i,&i,'i,(i,)i,*i,+i,+i,-i,.i,/i,0i,1i,2i,3i,4i,5i,6i,7i,8i,9i,:i,;i,<i,=i,>i,i,i,i,i, i,!i,"i,#i,$i,%i,&i,'i,(i,)i,*i,+i,+i,-i,.i,/i,0i,1i,2i,3i,4i,5i,6i,7i,8i,9i,:i,;i,<i,=i,>i,?i,@i,i,i,i,i,i,i, i,!i,"i,#i,$i,%i,&i,'i,(i,)i,*i,+i,+i,-i,.i,/i,0i,1i,2i,3i,4i,5i,6i,7i,8i,9i,:i,;i,<i,=i,>i,?i,@i,Ai,Bi,i,i,i,i,i,i,i, i,!i,"i,#i,$i,%i,&i,'i,(i,)i,*i,+i,+i,-i,.i,/i,0i,1i,2i,3i,4i,5i,6i,7i,8i,9i,:i,;i,<i,=i,>i,?i,@i,Ai,Bi,Ci,i,i,i,i,i,i,i,i,i, i,!i,"i,#i,$i,%i,&i,'i,(i,4i,5i,6i,7i,8i,9i,:i,;i,<i,=i,>i,?i,@i,Ai,Bi,Ci,Di,Ei,i,i,i,i,i,i,i,i,i,i, i,!i,"i,#i,$i,8i,9i,:i,;i,<i,=i,>i,?i,@i,Ai,Bi,Ci,Di,Ei,Fi,i,i,i,i,i,i,i,i,i,i,i, i,!i,"i,;i,<i,=i,>i,?i,@i,Ai,Bi,Ci,Di,Ei,Fi,Gi,i,i,i,i,i,i,i,i,i,i,i,i, i,=i,>i,?i,@i,Ai,Bi,Ci,Di,Ei,Fi,Gi,Hi,i,i,i,i,i,i,i,i,i,i,i,i,>i,?i,@i,Ai,Bi,Ci,Di,Ei,Fi,Gi,Hi,Ii,i,i,i,i,i,i,i,i,i,i,i,@i,Ai,Bi,Ci,Di,Ei,Fi,Gi,Hi,Ii,Ji,i,i,i,i,i,i,i,i,i,i,i,i,Ai,Bi,Ci,Di,Ei,Fi,Gi,Hi,Ii,Ji,Ki,i,i,i,i,i,i,i,i,i,i,i,i,i,Ci,Di,Ei,Fi,Gi,Hi,Ii,Ji,Ki,Li,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i,Di,Ei,Fi,Gi,Hi,Ii,Ji,Ki,Li,Mi,i,i,i,i,i,i,i,i,i,i,p26,26i,i,i,i,i,Ei,Fi,Gi,Hi,Ii,Ji,Ki,Li,Mi,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i,Fi,Gi,Hi,Ii,Ji,Ki,Li,Mi,Ni,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i, i,Gi,Hi,Ii,Ji,Ki,Li,Mi,Ni,Oi,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i, i,!i,Gi,Hi,Ii,Ji,Ki,Li,Mi,Ni,Oi,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i, i,!i,"i,Hi,Ii,Ji,Ki,Li,Mi,Ni,Oi,Pi,i,i,i,i,i,i,i,i,i,i,i,i,i,i,i, i,!i,"i,#i,Ii,Ji,Ki,Li,Mi,Ni,Oi,Pi ,i ,i ,i ,i ,i ,i ,i ,i ,i ,i ,i ,i ,i ,i , i ,!i ,"i ,#i ,$i ,Ji ,Ki ,Li ,Mi ,Ni ,Oi ,Pi ,Qi!,i!,i!,i!,i!,i!,i!,i!,i!,i!,i!,i!,i!,i!, i!,!i!,"i!,#i!,$i!,%i!,Ji!,Ki!,Li!,Mi!,Ni!,Oi!,Pi!,Qi",
+i",i",i",i",i",i",i",i",i",i",i",i", i",!i","i",#i",$i",%i",&i",Ki",Li",Mi",Ni",Oi",Pi",Qi",Ri#,
+i#,i#,i#,i#,i#,i#,i#,i#,i#,i#,i#, i#,!i#,"i#,#i#,$i#,%i#,&i#,'i#,Ki#,Li#,Mi#,Ni#,Oi#,Pi#,Qi#,Ri$,
+i$,i$,i$,i$,i$,i$,i$,i$,i$, i$,!i$,"i$,#i$,$i$,%i$,&i$,'i$,(i$,Li$,Mi$,Ni$,Oi$,Pi$,Qi$,Ri%,	i%,
+i%,i%,i%,i%,i%,i%,i%,i%, i%,!i%,"i%,#i%,$i%,%i%,&i%,'i%,(i%,)i%,Li%,Mi%,Ni%,Oi%,Pi%,Qi%,Ri%,Si&,	i&,
+i&,i&,i&,i&,i&,i&, i&,!i&,"i&,#i&,$i&,%i&,&i&,'i&,(i&,)i&,*i&,Li&,Mi&,Ni&,Oi&,Pi&,Qi&,Ri&,Si',	i',
+i',i',i',i',i',i',!i',"i',#i',$i',%i',&i','i',(i',)i',*i',+i',Mi',Ni',Oi',Pi',Qi',Ri',Si(,	i(,
+i(,i(,i(,i(,i(,i(,"i(,#i(,$i(,%i(,&i(,'i(,(i(,)i(,*i(,+i(,+i(,Mi(,Ni(,Oi(,Pi(,Qi(,Ri(,Si),i),	i),
+i),i),i),i),i),i),#i),$i),%i),&i),'i),(i),)i),*i),+i),+i),-i),Mi),Ni),Oi),Pi),Qi),Ri),Si),Ti*,i*,	i*,
+i*,i*,i*,i*,i*,$i*,%i*,&i*,'i*,(i*,)i*,*i*,+i*,+i*,-i*,.i*,Mi*,Ni*,Oi*,Pi*,Qi*,Ri*,Si*,Ti+,i+,	i+,
+i+,i+,i+,i+,i+,%i+,&i+,'i+,(i+,)i+,*i+,+i+,+i+,-i+,.i+,/i+,Ni+,Oi+,Pi+,Qi+,Ri+,Si+,Tp44,8p44,9i+,
+i+,i+,i+,i+,i+,&i+,'i+,(i+,)i+,*i+,+p44,44i+,-i+,.i+,/i+,0i+,Ni+,Oi+,Pi+,Qi+,Ri+,Si+,Ti-,i-,	i-,
+i-,i-,i-,i-,i-,'i-,(i-,)i-,*i-,+i-,+i-,-i-,.i-,/i-,0i-,1i-,Ni-,Oi-,Pi-,Qi-,Ri-,Si-,Ti.,i.,	i.,
+i.,i.,i.,i.,i.,(i.,)i.,*i.,+i.,+i.,-i.,.i.,/i.,0i.,1i.,2i.,Ni.,Oi.,Pi.,Qi.,Ri.,Si.,Ti/,i/,	i/,
+i/,i/,i/,i/,i/,)i/,*i/,+i/,+i/,-i/,.i/,/i/,0i/,1i/,2i/,3i/,Ni/,Oi/,Pi/,Qi/,Ri/,Si/,Ti0,i0,	i0,
+i0,i0,i0,i0,i0,*i0,+i0,+i0,-i0,.i0,/i0,0i0,1i0,2i0,3i0,4i0,Ni0,Oi0,Pi0,Qi0,Ri0,Si0,Ti1,i1,	i1,
+i1,i1,i1,i1,i1,+i1,+i1,-i1,.i1,/i1,0i1,1i1,2i1,3i1,4i1,5i1,Ni1,Oi1,Pi1,Qi1,Ri1,Si1,Ti2,i2,	i2,
+i2,i2,i2,i2,i2,+i2,-i2,.i2,/i2,0i2,1i2,2i2,3i2,4i2,5i2,6i2,Ni2,Oi2,Pi2,Qi2,Ri2,Si2,Ti3,i3,	i3,
+i3,i3,i3,i3,i3,-i3,.i3,/i3,0i3,1i3,2i3,3i3,4i3,5i3,6i3,7i3,Ni3,Oi3,Pi3,Qi3,Ri3,Si3,Ti4,i4,	i4,
+i4,i4,i4,i4,i4,.i4,/i4,0i4,1i4,2i4,3i4,4i4,5i4,6i4,7i4,8i4,Ni4,Oi4,Pi4,Qi4,Ri4,Si4,Ti5,i5,	i5,
+i5,i5,i5,i5,i5,i5,/i5,0i5,1i5,2i5,3i5,4i5,5i5,6i5,7i5,8i5,9i5,Ni5,Oi5,Pi5,Qi5,Ri5,Si5,Ti6,i6,	i6,
+i6,i6,i6,i6,i6,i6,0i6,1i6,2i6,3i6,4i6,5i6,6i6,7i6,8i6,9i6,:i6,Mi6,Ni6,Oi6,Pi6,Qi6,Ri6,Si6,Ti7,	i7,
+i7,i7,i7,i7,i7,i7,1i7,2i7,3i7,4i7,5i7,6i7,7i7,8i7,9i7,:i7,;i7,Mi7,Ni7,Oi7,Pi7,Qi7,Ri7,Si8,	i8,
+i8,i8,i8,i8,i8,i8,2i8,3i8,4i8,5i8,6i8,7i8,8i8,9i8,:i8,;i8,<i8,Mi8,Ni8,Oi8,Pi8,Qi8,Ri8,Si9,	i9,
+i9,i9,i9,i9,i9,i9,i9,3i9,4i9,5i9,6i9,7i9,8i9,9i9,:i9,;i9,<i9,=i9,Mi9,Ni9,Oi9,Pi9,Qi9,Ri9,Si:,	i:,
+i:,i:,i:,i:,i:,i:,i:,4i:,5i:,6i:,7i:,8i:,9i:,:i:,;i:,<i:,=i:,>i:,Li:,Mi:,Ni:,Oi:,Pi:,Qi:,Ri:,Si;,	i;,
+i;,i;,i;,i;,i;,i;,i;,5i;,6i;,7i;,8i;,9i;,:i;,;i;,<i;,=i;,>i;,?i;,Li;,Mi;,Ni;,Oi;,Pi;,Qi;,Ri;,Si<,
+i<,i<,i<,i<,i<,i<,i<,i<,6i<,7i<,8i<,9i<,:i<,;i<,<i<,=i<,>i<,?i<,@i<,Li<,Mi<,Ni<,Oi<,Pi<,Qi<,Ri=,
+i=,i=,i=,i=,i=,i=,i=,i=,7i=,8i=,9i=,:i=,;i=,<i=,=i=,>i=,?i=,@i=,Ai=,Ki=,Li=,Mi=,Ni=,Oi=,Pi=,Qi=,Ri>,i>,i>,i>,i>,i>,i>,i>,i>,8i>,9i>,:i>,;i>,<i>,=i>,>i>,?i>,@i>,Ai>,Bi>,Ki>,Li>,Mi>,Ni>,Oi>,Pi>,Qi?,i?,i?,i?,i?,i?,i?,i?,i?,9i?,:i?,;i?,<i?,=i?,>i?,?i?,@i?,Ai?,Bi?,Ci?,Ji?,Ki?,Li?,Mi?,Ni?,Oi?,Pi?,Qi@,i@,i@,i@,i@,i@,i@,i@,i@,i@,:i@,;i@,<i@,=i@,>i@,?i@,@i@,Ai@,Bi@,Ci@,Di@,Ii@,Ji@,Ki@,Li@,Mi@,Ni@,Oi@,Pi@,QiA,iA,iA,iA,iA,iA,iA,iA,iA,iA,;iA,<iA,=iA,>iA,?iA,@iA,AiA,BiA,CiA,DiA,EiA,IiA,JiA,KiA,LiA,MiA,NiA,OiA,PiB,iB,iB,iB,iB,iB,iB,iB,iB,iB,<iB,=iB,>iB,?iB,@iB,AiB,BiB,CiB,DiB,EiB,FiB,HiB,IiB,JiB,KiB,LiB,MiB,NiB,OiB,PiC,iC,iC,iC,iC,iC,iC,iC,iC,iC,=iC,>iC,?iC,@iC,AiC,BiC,CiC,DiC,EiC,FiC,GiC,HiC,IiC,JiC,KiC,LiC,MiC,NiC,OiD,iD,iD,iD,iD,iD,iD,iD,iD,iD,>iD,?iD,@iD,AiD,BiD,CiD,DiD,EiD,FiD,GiD,HiD,IiD,JiD,KiD,LiD,MiD,NiE,iE,iE,iE,iE,iE,iE,iE,iE,iE,iE,?iE,@iE,AiE,BiE,CiE,DiE,EiE,FiE,GiE,HiE,IiE,JiE,KiE,LiE,MiE,NiF,iF,iF,iF,iF,iF,iF,iF,iF,iF,iF,@iF,AiF,BiF,CiF,DiF,EiF,FiF,GiF,HiF,IiF,JiF,KiF,LiF,MiG,iG,iG,iG,iG,iG,iG,iG,iG,iG,iG,AiG,BiG,CiG,DiG,EiG,FiG,GiG,HiG,IiG,JiG,KiG,LiH,iH,iH,iH,iH,iH,iH,iH,iH,iH,iH,AiH,BiH,CiH,DiH,EiH,FiH,GiH,HiH,IiH,JiH,KiI,iI,iI,iI,iI,iI,iI,iI,iI,iI,iI,iI,@iI,AiI,BiI,CiI,DiI,EiI,FiI,GiI,HiI,IiI,JiI,KiJ,iJ,iJ,iJ,iJ,iJ,iJ,iJ,iJ,iJ,iJ,iJ,iJ,?iJ,@iJ,AiJ,BiJ,CiJ,DiJ,EiJ,FiJ,GiJ,HiJ,IiJ,JiK,iK,iK,iK,iK,iK,iK,iK,iK,iK,iK,iK,iK,=iK,>iK,?iK,@iK,AiK,BiK,CiK,DiK,EiK,FiK,GiK,HiK,IiL,iL,iL,iL,iL,iL,iL,iL,iL,iL,iL,iL,iL, iL,;iL,<iL,=iL,>iL,?iL,@iL,AiL,BiL,CiL,DiL,EiL,FiL,GiL,HiM,iM,iM,iM,iM,iM,iM,iM,iM,iM,iM, iM,!iM,"iM,#iM,9iM,:iM,;iM,<iM,=iM,>iM,?iM,@iM,AiM,BiM,CiM,DiM,EiM,FiN,iN,iN,iN,iN,iN,iN,iN,iN,iN, iN,!iN,"iN,#iN,$iN,%iN,&iN,6iN,7iN,8iN,9iN,:iN,;iN,<iN,=iN,>iN,?iN,@iN,AiN,BiN,CiN,DiN,EiO,iO,iO,iO,iO,iO,iO,iO,iO, iO,!iO,"iO,#iO,$iO,%iO,&iO,'iO,(iO,)iO,*iO,+iO,+iO,-iO,.iO,/iO,0iO,1iO,2iO,3iO,4iO,5iO,6iO,7iO,8iO,9iO,:iO,;iO,<iO,=iO,>iO,?iO,@iO,AiO,BiO,CiO,DiP,iP,iP,iP,iP,iP,iP, iP,!iP,"iP,#iP,$iP,%iP,&iP,'iP,(iP,)iP,*iP,+iP,+iP,-iP,.iP,/iP,0iP,1iP,2iP,3iP,4iP,5iP,6iP,7iP,8iP,9iP,:iP,;iP,<iP,=iP,>iP,?iP,@iP,AiP,BiQ,iQ,iQ,iQ,iQ,iQ, iQ,!iQ,"iQ,#iQ,$iQ,%iQ,&iQ,'iQ,(iQ,)iQ,*iQ,+iQ,+iQ,-iQ,.iQ,/iQ,0iQ,1iQ,2iQ,3iQ,4iQ,5iQ,6iQ,7iQ,8iQ,9iQ,:iQ,;iQ,<iQ,=iQ,>iQ,?iQ,@iQ,AiR,iR,iR,iR, iR,!iR,"iR,#iR,$iR,%iR,&iR,'iR,(iR,)iR,*iR,+iR,+iR,-iR,.iR,/iR,0iR,1iR,2iR,3iR,4iR,5iR,6iR,7iR,8iR,9iR,:iR,;iR,<iR,=iR,>iR,?iS,iS, iS,!iS,"iS,#iS,$iS,%iS,&iS,'iS,(iS,)iS,*iS,+iS,+iS,-iS,.iS,/iS,0iS,1iS,2iS,3iS,4iS,5iS,6iS,7iS,8iS,9iS,:iS,;iS,<iS,=iT,"iT,#iT,$iT,%iT,&iT,'iT,(iT,)iT,*iT,+iT,+iT,-iT,.iT,/iT,0iT,1iT,2iT,3iT,4iT,5iT,6iT,7iT,8iT,9iT,:iU,&iU,'iU,(iU,)iU,*iU,+iU,+iU,-iU,.iU,/iU,0iU,1iU,2iU,3iU,4iU,5iU,6c215,92,0i,'i,5i,;i,=i,@i,i,i,i,i,Hi ,i!,i",i#,i$,i%,i&,i', i',Li(,!i),"i*,#i+,$i+,%i-,&i.,'i/,(i0,)i1,*i2,+i3,+i4,-i5,.i6,/i7,i7,0i8,1i9,2i:,3i;,4i<,5i=,6i>,7i?,8i@,9iA,:iB,;iC,<iD,=iE,>iF,?iG,@iO,EiT, iT,<iU,#iU,9iV,(iV,4c194,34,0i,i,=i,Ci,i,Gi,i,Hi,i,Ki$,	i$,Si5,Mi9,Li?,iA,HiH,iJ,iK,<iL,"iL,:iM,7iN,)iN,3c171,123,0i,4i,"i, i,i,>i,Ai,Gi",i$,i<,	i<,SiC,iC,PiJ,iJ,KiK,iK,JiL,iL,IiM,iM,HiR,iR,AiS,iS,?iT,iT,=iU,"iU,:iV,&iV,6c171,57,0p9,44i	,-i	,.i	,/i	,0i
+,%i
+,7i,!i,;i,i,i,Fi,i,Li,i,Oi!,
+i!,Ri;,iC,iD,iF,iG,iI,?iK, iM,%iN,*iN,2c255,34,0i,)i,*i,3i,%i,7i,:i,<i,Bi,Fi ,Ii*,i>,
+i>,RiH,iH,LiM,iM,GiP,iP,CiU,%iU,7c148,123,0i,)i,*i,3i,%i,7i,:i,<i,Bi,Fi!,Ii+,i?,
+i?,RiI,iI,LiN,iN,GiQ,iQ,CiV,%iV,7c215,0,0i
+,&i
+,6i,"i,:i,i,?i,i,Ai,i,Di,i,Ii,i,Ji,i,Pi,i,Qi>,JiB,iJ,>iM,$iM,8iN,(iN,4c194,108,0i,(i,$i,8i ,iA,iA,QiF,iF,NiP,iP,DiV,'iV,5c255,57,0i,+i,1i,2i,i,Ci,Di,Ei,i",Ji$,Ki&,iD,iD,OiG,iN,iN,FiT,!iT,;iU,$iU,8iV,+iV,+iV,-iV,.iV,/iV,0iV,1c123,108,0i	,'i	,5i
+,#i
+,9i,i,Ni;,KiH,iJ,iK,!iM,'iM,5c235,0,0i
+,'i
+,5i,#i,9i,i,Ni<,KiI,iK,iL,!iN,'iN,5c148,75,0i	,*i	,+i	,1i	,2i
+,$i
+,8i,i,>i,i,@i,i,i,Mi,i,i, i,!i,"i,#i,$i ,%i!,&i",'i#,(i$,)i%,*i&,+i',+i(,-i),.i*,/i+,0i+,1i-,2i.,3i/,4i0,5i1,6i2,7i3,8i4,i4,9i5,:i6,;i7,<i8,=i9,>i:,?i;,@i<,Ai=,i=,Bi>,Ci?,Di@,EiA,FiB,GiE,iI,iL,9iM,6iN,+iN,+iN,0iN,1c235,75,0i,+i,-i,.i,/i,0i,&i,6i,#i,9i,!i,i,?i+,Mi7,TiG,MiO,iQ,iQ,BiR,iR,@iS,iS,>iV,)iV,*iV,2iV,3}
