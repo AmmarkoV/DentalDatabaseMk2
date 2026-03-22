@@ -3,13 +3,13 @@
 WINEPREFIX=/home/ammar/.wine32/
 DEVPAS="C:/Dev-Pas"
 PROJECT="C:/DDBMK2/DentalDatabaseMk2"
-WINDRES="$HOME/.wine32/drive_c/Dev-Pas/Bin/windres.exe"
+PROJDIR="/home/ammar/Documents/Programming/DentalDatabaseMK2/DentalDatabaseMk2"
 PPC386="$HOME/.wine32/drive_c/Dev-Pas/Bin/ppc386.exe"
 
 echo "=== Building resource file... ==="
-WINEPREFIX=$WINEPREFIX wine "$WINDRES" \
-  -i "$PROJECT/rsrc.rc" \
-  -o "$PROJECT/rsrc.o"
+sed "s|C:/DDBMK2/DentalDatabaseMk2|$PROJDIR|g" "$PROJDIR/rsrc.rc" > /tmp/rsrc_build.rc
+i686-w64-mingw32-windres /tmp/rsrc_build.rc -o "$PROJDIR/rsrc.o"
+rm -f /tmp/rsrc_build.rc
 
 if [ $? -ne 0 ]; then
   echo "ERROR: Resource compilation failed."
@@ -18,7 +18,7 @@ fi
 
 echo "=== Compiling Pascal source... ==="
 WINEPREFIX=$WINEPREFIX wine "$PPC386" \
-  "$PROJECT/ddatabase.lpr" \
+  "$PROJECT/ddatabase.pas" \
   "-o$PROJECT/Dental Database.exe" \
   -S2 -Sg -Un -Sh -O1 -Op1 \
   "-Fu$DEVPAS/units/" \
