@@ -1,10 +1,37 @@
 #!/bin/bash
 
-WINEPREFIX=/home/ammar/.wine32/
+PROJDIR="$(dirname "$(realpath "$0")")"
+WINEPREFIX="$HOME/.wine32"
 DEVPAS="C:/Dev-Pas"
 PROJECT="C:/DDBMK2/DentalDatabaseMk2"
-PROJDIR="/home/ammar/Documents/Programming/DentalDatabaseMK2/DentalDatabaseMk2"
-PPC386="$HOME/.wine32/drive_c/Dev-Pas/Bin/ppc386.exe"
+PPC386="$WINEPREFIX/drive_c/Dev-Pas/Bin/ppc386.exe"
+
+# === Setup: create 32-bit Wine prefix and install Dev-Pascal if needed ===
+if [ ! -d "$WINEPREFIX" ]; then
+  echo "=== Creating 32-bit Wine prefix at $WINEPREFIX ==="
+  WINEPREFIX=$WINEPREFIX WINEARCH=win32 wine wineboot
+  if [ $? -ne 0 ]; then
+    echo "ERROR: Failed to create Wine prefix."
+    exit 1
+  fi
+
+  echo "=== Running Dev-Pascal installer (follow the setup wizard) ==="
+  WINEPREFIX=$WINEPREFIX wine "$PROJDIR/dev/devpas192.exe"
+  if [ $? -ne 0 ]; then
+    echo "ERROR: Dev-Pascal installer failed."
+    exit 1
+  fi
+fi
+
+# === Setup: create project symlink in Wine C: drive if needed ===
+WINE_DDBMK2="$WINEPREFIX/drive_c/DDBMK2"
+WINE_PROJLINK="$WINE_DDBMK2/DentalDatabaseMk2"
+if [ ! -L "$WINE_PROJLINK" ] && [ ! -d "$WINE_PROJLINK" ]; then
+  echo "=== Creating project symlink at C:\\DDBMK2\\DentalDatabaseMk2 ==="
+  mkdir -p "$WINE_DDBMK2"
+  ln -s "$PROJDIR" "$WINE_PROJLINK"
+  echo "    Linked: $WINE_PROJLINK -> $PROJDIR"
+fi
 
 echo "=== Building resource file... ==="
 sed "s|C:/DDBMK2/DentalDatabaseMk2|$PROJDIR|g" "$PROJDIR/rsrc.rc" > /tmp/rsrc_build.rc
