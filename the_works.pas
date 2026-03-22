@@ -146,11 +146,11 @@ rewrite(fileused);
 {$i+}
 if Ioresult=0 then
   begin
-   writeln(fileused,'<html><head><title>Κατάλογος εργασιών</title><meta http-equiv="Content-Type" content="text/html; charset=windows-1253"></head>');
+   writeln(fileused,'<html><head><title>οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½</title><meta http-equiv="Content-Type" content="text/html; charset=windows-1253"></head>');
 writeln(fileused,'<body bgcolor=#FFFFFF text=#000000><BASEFONT face="Verdana">');
 
 writeln(fileused,'<center><table><tr><td width=700><center><h2>');
-writeln(fileused,'Κατάλογος διαθέσιμων εργασιών '+Convert2String(datesnstuff[1])+'/'+Convert2String(datesnstuff[3])+'/'+Convert2String(datesnstuff[4])+'</center>');
+writeln(fileused,'οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ '+Convert2String(datesnstuff[1])+'/'+Convert2String(datesnstuff[3])+'/'+Convert2String(datesnstuff[4])+'</center>');
 writeln(fileused,'</td><td><center><img src="../logo.jpg" height=50><br><font bgcolor=#CCCCCC size=1>Powered by A-TECH</font></center></td></tr>');
 writeln(fileused,'<tr><td>');
 
@@ -158,7 +158,7 @@ writeln(fileused,'<table>');
 for i:=1 to alias_types_count do
    begin
      writeln(fileused,'<tr bgcolor=#CCCCCC><td colspan=4>'+alias_types[i]+' - '+Convert2String(alias_types_add[2,i]-alias_types_add[1,i]+1)+'</td></tr>');
-     writeln(fileused,'<tr><td>Κωδικός</td><td>Όνομα Εργασίας</td><td>Τιμή</td><td>Συντ.</td></tr>');
+     writeln(fileused,'<tr><td>οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½</td><td>οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½</td><td>οΏ½οΏ½οΏ½οΏ½</td><td>οΏ½οΏ½οΏ½οΏ½.</td></tr>');
      for z:=alias_types_add[1,i] to alias_types_add[2,i] do
         begin
           writeln(fileused,'<tr>');
@@ -178,7 +178,7 @@ writeln(fileused,'</body>');
 writeln(fileused,'</html>');
 close(fileused);
 RunEXEWait(get_external_browser+' "'+get_central_dir+'Cache\works_printout.html"',false);
-MessageBox (0, 'Πατήστε OK όταν τελειώσετε με την διαδικασία εκτύπωσης' , ' ', 0 + MB_ICONASTERISK);
+MessageBox (0, 'οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ OK οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½' , ' ', 0 + MB_ICONASTERISK);
   end;
 end;
 
@@ -224,7 +224,7 @@ flush_gui_memory(0);
 space:=30;
 //ypos:=100 300+(endfrom-startfrom+2)*space
 
-include_object('Window_Works_Select_A_Work','window','Επιλογή εργασίας','Works_Select_A_Work','','',(GetMaxX div 2)-350,000,(GetMaxX div 2)+350,200+(endfrom-startfrom+3)*space);
+include_object('Window_Works_Select_A_Work','window','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','Works_Select_A_Work','','',(GetMaxX div 2)-350,000,(GetMaxX div 2)+350,200+(endfrom-startfrom+3)*space);
 yexit:=Y2('Window_Works_Select_A_Work');
 draw_all;
 flush_gui_memory(0);
@@ -233,11 +233,11 @@ if ((startfrom>0)and(endfrom<=MAX_ALIASES)and(startfrom<endfrom)) then
       for i:=startfrom to endfrom do
        begin
        retres:=alias_str[2,i]+' - '+Convert2String(alias_int[2,i]);
-       if ((alias_str[2,i]='') and (alias_int[2,i]=0) ) then retres:='κενό';
+       if ((alias_str[2,i]='') and (alias_int[2,i]=0) ) then retres:='οΏ½οΏ½οΏ½οΏ½';
        include_object('Works_Select_BTN('+Convert2String(i),'buttonc',retres,'Works_Select_A_Work','','',-1,50+(i-startfrom)*space,-1,0);
        end;
      end; 
-include_object('exit2','buttonc','Έξοδος','Works_Select_A_Work','','',-1,Y2(last_object)+20,-1,0);
+include_object('exit2','buttonc','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','Works_Select_A_Work','','',-1,Y2(last_object)+20,-1,0);
 draw_all; 
 repeat
 interact;
@@ -269,7 +269,7 @@ begin
 start_select_works:
 flush_gui_memory(0);
 space:=30;
-include_object('Window_Works_Select_Work','window','Επιλογή κατηγορίας εργασίας','Works_Select_Work','','',(GetMaxX div 2)-150,200,(GetMaxX div 2)+150,300+(alias_types_count+2)*space);
+include_object('Window_Works_Select_Work','window','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','Works_Select_Work','','',(GetMaxX div 2)-150,200,(GetMaxX div 2)+150,300+(alias_types_count+2)*space);
 yexit:=Y2('Window_Works_Select_Work');
 draw_all;
 flush_gui_memory(0);
@@ -281,7 +281,7 @@ if alias_types_count>0 then
        include_object('Works_Select_BTN('+Convert2String(i),'buttonc',retres,'Works_Select_Work','','',-1,250+i*space,-1,0);
        end;
      end; 
-include_object('exit','buttonc','Έξοδος','Works_Select_Work','','',-1,yexit-40,-1,0);
+include_object('exit','buttonc','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','Works_Select_Work','','',-1,yexit-40,-1,0);
 draw_all;
 repeat
 interact;
@@ -347,7 +347,7 @@ if alias_types_count>category then
    end;
 
 end else
- MessageBox (0,pchar('Η συγκεκριμένη έκδοση της βάσης υποστηρίζει χρήση έως και '+Convert2String(MAX_ALIASES)+' εργασιών.. '), 'Όριο Εργασιών', 0 + MB_ICONASTERISK);
+ MessageBox (0,pchar('οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ '+Convert2String(MAX_ALIASES)+' οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½.. '), 'οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½', 0 + MB_ICONASTERISK);
 
 Insert_Alias:=retres;
 end;
@@ -390,7 +390,7 @@ if alias_types_count>category then
    end;        }
 
 end else
- MessageBox (0,pchar('Η συγκεκριμένη έκδοση της βάσης υποστηρίζει χρήση έως και '+Convert2String(MAX_ALIASES)+' εργασιών.. '), 'Όριο Εργασιών', 0 + MB_ICONASTERISK);
+ MessageBox (0,pchar('οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ '+Convert2String(MAX_ALIASES)+' οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½.. '), 'οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½', 0 + MB_ICONASTERISK);
 
 Remove_Alias:=retres;
 end;
@@ -410,7 +410,7 @@ flush_gui_memory(0);
 tbox:=TextWidth('XXXX');
 startx:=GridX(1,3)-70;
 starty:=200;
-include_object('window1','window','Αλλαγή στo '+Convert2String(mem_spot),'no','','',startx,starty,GetMaxX-startx,starty+300);
+include_object('window1','window','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½o '+Convert2String(mem_spot),'no','','',startx,starty,GetMaxX-startx,starty+300);
 draw_all;
 delete_object('window1','name');
 starty:=starty+60;
@@ -420,13 +420,13 @@ include_object('price','textbox',Convert2String(price),'no','','',X2(last_object
 starty:=starty+2*blocky;
 include_object('description','textbox',the_alias,'no','','',startx+20,starty,GetMaxX-startx-20,0);
                                                     
-include_object('comment_code','comment','Κωδικός','no','','',X1('code'),Y1('code')-22,0,0);
-include_object('comment_strcode','comment','Συντόμευση','no','','',X1('strcode'),Y1('strcode')-22,0,0);
-include_object('comment_price','comment','Τιμή','no','','',X1('price'),Y1('price')-22,0,0);
-include_object('comment_Ergasia','comment','Περιγραφή','no','','',X1('description'),Y1('description')-22,0,0);
+include_object('comment_code','comment','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',X1('code'),Y1('code')-22,0,0);
+include_object('comment_strcode','comment','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',X1('strcode'),Y1('strcode')-22,0,0);
+include_object('comment_price','comment','οΏ½οΏ½οΏ½οΏ½','no','','',X1('price'),Y1('price')-22,0,0);
+include_object('comment_Ergasia','comment','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',X1('description'),Y1('description')-22,0,0);
 
-include_object('ok','buttonc','Αλλαγή','no','','',-1,starty+blocky*4,-1,0);
-include_object('exit','buttonc','Έξοδος','no','','',-1,starty+blocky*5,-1,0);
+include_object('ok','buttonc','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',-1,starty+blocky*4,-1,0);
+include_object('exit','buttonc','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',-1,starty+blocky*5,-1,0);
 draw_all;
 repeat
  interact;
@@ -435,7 +435,7 @@ repeat
                                     Val(get_object_data('code'),z,i);
                                     if ( (Get_Work_Mem_From_Code(get_object_data('code'))<>-1) and (Get_Work_Mem_From_Code(get_object_data('code'))<>mem_spot) ) then
                                      begin
-                                      MessageBox (0, pchar('Έχετε δηλώσει λάθος κωδικό εργασία '+Convert2String(Get_Work_Mem_From_Code(get_object_data('code')))) , ' ', 0+ MB_ICONASTERISK + MB_SYSTEMMODAL);
+                                      MessageBox (0, pchar('οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ '+Convert2String(Get_Work_Mem_From_Code(get_object_data('code')))) , ' ', 0+ MB_ICONASTERISK + MB_SYSTEMMODAL);
                                      end else
                                     if z<>0 then
                                      begin  
@@ -449,7 +449,7 @@ repeat
                                       Set_Work(mem_spot,the_code,the_str_code,the_alias,price);
                                       break;
                                      end else
-                                     MessageBox (0, 'Δεν μπορείτε να χρησιμοποιήσετε τον κωδικό 0 , είναι δεσμευμένος' , ' ', 0 + MB_ICONASTERISK + MB_SYSTEMMODAL);
+                                     MessageBox (0, 'οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ 0 , οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½' , ' ', 0 + MB_ICONASTERISK + MB_SYSTEMMODAL);
                                   end;
  until GUI_Exit;
 end;
@@ -473,28 +473,31 @@ start_gui_prices:
  startx:=GridX(1,3)-70;
  starty:=200; 
  blocky:=30;
- include_object('window1','window','Αλλαγή στις τιμές','no','','',startx,starty,GetMaxX-startx,starty+230);
+ include_object('window1','window','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',startx,starty,GetMaxX-startx,starty+230);
  draw_all;
  delete_object('window1','name');
  starty:=starty+40;
- include_object('new','buttonc','Προσθήκη κάποιας τιμής σε κατηγορία','no','','',-1,starty+blocky*0,-1,0);
- include_object('start','buttonc','Αλλαγή σε κάποια τιμή','no','','',-1,starty+blocky*1,-1,0);
- include_object('print','buttonc','Εκτύπωση καταλόγων τιμών','no','','',-1,starty+blocky*2,-1,0);
- include_object('save','buttonc','Αποθήκευση','no','','',-1,starty+blocky*3,-1,0);
- include_object('exit','buttonc','Έξοδος','no','','',-1,starty+blocky*4,-1,0);
+ include_object('new','buttonc','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',-1,starty+blocky*0,-1,0);
+ include_object('start','buttonc','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½','no','','',-1,starty+blocky*1,-1,0);
+ include_object('print','buttonc','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',-1,starty+blocky*2,-1,0);
+ include_object('save','buttonc','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',-1,starty+blocky*3,-1,0);
+ include_object('exit','buttonc','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',-1,starty+blocky*4,-1,0);
  draw_all;
  repeat
   interact;
     if get_object_data('new')='4' then begin
                                         set_button('new',0); 
                                         retres:=Select_Works(true);
-                                        Val(retres,mem_spot,i);
-                                        mem_spot:=Insert_Alias(mem_spot);
-                                        if mem_spot<>-1 then
-                                           begin
-                                            GUI_Set_A_Work(mem_spot);
-                                            goto start_gui_prices;
-                                           end; 
+                                        if retres<>'' then
+                                         begin
+                                          Val(retres,mem_spot,i);
+                                          mem_spot:=Insert_Alias(mem_spot);
+                                          if mem_spot<>-1 then
+                                             begin
+                                              GUI_Set_A_Work(mem_spot);
+                                              goto start_gui_prices;
+                                             end;
+                                         end;
                                        end else
     if get_object_data('print')='4' then begin
                                             set_button('print',0);
@@ -524,7 +527,7 @@ start_gui_prices:
                                                     flush_gui_memory(0);
                                                     startx:=GridX(1,3)-70;
                                                     starty:=200; 
-                                                    include_object('window1','window','Αλλαγή στo '+retres,'no','','',startx,starty,GetMaxX-startx,starty+300);
+                                                    include_object('window1','window','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½o '+retres,'no','','',startx,starty,GetMaxX-startx,starty+300);
                                                     draw_all;
                                                     delete_object('window1','name');
                                                     starty:=starty+60;
@@ -534,13 +537,13 @@ start_gui_prices:
                                                     starty:=starty+2*blocky;
                                                     include_object('description','textbox',the_alias,'no','','',startx+20,starty,GetMaxX-startx-20,0);
                                                     
-                                                    include_object('comment_code','comment','Κωδικός','no','','',X1('code'),Y1('code')-22,0,0);
-                                                    include_object('comment_strcode','comment','Συντόμευση','no','','',X1('strcode'),Y1('strcode')-22,0,0);
-                                                    include_object('comment_price','comment','Τιμή','no','','',X1('price'),Y1('price')-22,0,0);
-                                                    include_object('comment_Ergasia','comment','Περιγραφή','no','','',X1('description'),Y1('description')-22,0,0);
+                                                    include_object('comment_code','comment','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',X1('code'),Y1('code')-22,0,0);
+                                                    include_object('comment_strcode','comment','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',X1('strcode'),Y1('strcode')-22,0,0);
+                                                    include_object('comment_price','comment','οΏ½οΏ½οΏ½οΏ½','no','','',X1('price'),Y1('price')-22,0,0);
+                                                    include_object('comment_Ergasia','comment','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',X1('description'),Y1('description')-22,0,0);
 
-                                                    include_object('ok','buttonc','Αλλαγή','no','','',-1,starty+blocky*4,-1,0);
-                                                    include_object('exit','buttonc','Έξοδος','no','','',-1,starty+blocky*5,-1,0);
+                                                    include_object('ok','buttonc','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',-1,starty+blocky*4,-1,0);
+                                                    include_object('exit','buttonc','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',-1,starty+blocky*5,-1,0);
                                                     draw_all; 
                                                     repeat
                                                      interact;

@@ -1144,13 +1144,13 @@ begin
 retres:='';
 if Length(bufstr1)>0 then begin
 for i:=1 to Length(bufstr1) do begin
-                                 if bufstr1[i]='¢' then retres:=retres+'A' else
-                                 if bufstr1[i]='¸' then retres:=retres+'Å' else
-                                 if bufstr1[i]='º' then retres:=retres+'É' else
-                                 if bufstr1[i]='¼' then retres:=retres+'Ï' else
-                                 if bufstr1[i]='¿' then retres:=retres+'Ù' else
-                                 if bufstr1[i]='¾' then retres:=retres+'Õ' else
-                                 if bufstr1[i]='¹' then retres:=retres+'Ç' else
+                                 if bufstr1[i]='ï¿½' then retres:=retres+'A' else
+                                 if bufstr1[i]='ï¿½' then retres:=retres+'ï¿½' else
+                                 if bufstr1[i]='ï¿½' then retres:=retres+'ï¿½' else
+                                 if bufstr1[i]='ï¿½' then retres:=retres+'ï¿½' else
+                                 if bufstr1[i]='ï¿½' then retres:=retres+'ï¿½' else
+                                 if bufstr1[i]='ï¿½' then retres:=retres+'ï¿½' else
+                                 if bufstr1[i]='ï¿½' then retres:=retres+'ï¿½' else
                                  retres:=retres+bufstr1[i];
                                end;
                            end;
@@ -2615,10 +2615,9 @@ procedure draw_object_by_name(numname:string);//ZWGRAFIZEI ENA SYGKEKRIMENO OBJE
 var objnum,z:integer;
 begin
 objnum:=-1; z:=0;
-while (objnum=-1) and (z<=dataloaded[1]) do begin
+while (objnum=-1) and (z<dataloaded[1]) do begin
                                              z:=z+1;
-{for i:=1 to dataloaded[1] do }              if Upcase(objects[z,1])=Upcase(numname) then objnum:=z; 
-                                             if z=dataloaded[1]+1 then outtextcenter('REACHES END+1 PROBLEM!!');
+{for i:=1 to dataloaded[1] do }              if Upcase(objects[z,1])=Upcase(numname) then objnum:=z;
                                            end;
 if objnum<>-1 then draw_object(objnum);
 end;
