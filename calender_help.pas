@@ -13,7 +13,7 @@ Type
    low_density:boolean;
    high_density:boolean;
 
-   //monday:boolean; //tuesday:boolean; //wednesday:boolean; //thursday:boolean; //friday:boolean; //saturday:boolean; //sunday:boolean;
+   //monday:boolean; //tuesday:boolean; //thirsday:boolean; //wednesday:boolean; //friday:boolean; //saturday:boolean; //sunday:boolean;
    week:array[1..7] of boolean;
    from_time_h:array[1..7] of byte;
    from_time_m:array[1..7] of byte;
@@ -43,13 +43,11 @@ i:=Calender_Function(datesnstuff[1],datesnstuff[3],datesnstuff[4],0);
 startdate:=cal_q.after_days+i;
 enddate:=cal_q.before_days+i;
 
-  if enddate>Calender_Function(31,12,datesnstuff[4],0) then MessageBox (0, 'οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½..'+#10+'οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½.. ', 'οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½..', 0 + MB_ICONASTERISK);
+  if enddate>Calender_Function(31,12,datesnstuff[4],0) then MessageBox (0, 'Η ημερομηνία τέλους που δόθηκε για την εύρεση ελεύθερου χρόνου για την εξέταση ξεπερνάει τα όρια του τρέχοντος χρόνου..'+#10+'Η αναζήτηση θα πραγματοποιηθεί μέχρι το τέλος του τρέχοντος χρόνου.. ', 'Υπέρβαση του τρέχοντος χρόνου..', 0 + MB_ICONASTERISK);
 
 loaded_month:=GetLastMonthLoaded;
-loaded_year:=GetLastYearLoaded;
+loaded_year:=GetLastYearLoaded; 
 
-Result:='';
-i:=startdate;
 while (i<enddate) do
  begin
 
@@ -92,8 +90,8 @@ begin
  
   if get_object_data('monday')='3' then  cal1.week[1]:=true else cal1.week[1]:=false;
   if get_object_data('tuesday')='3' then  cal1.week[2]:=true else cal1.week[2]:=false;
-  if get_object_data('wednesday')='3' then  cal1.week[3]:=true else cal1.week[3]:=false;
-  if get_object_data('thursday')='3' then  cal1.week[4]:=true else cal1.week[4]:=false;
+  if get_object_data('thirsday')='3' then  cal1.week[3]:=true else cal1.week[3]:=false;
+  if get_object_data('wednesday')='3' then  cal1.week[4]:=true else cal1.week[4]:=false;
   if get_object_data('friday')='3' then  cal1.week[5]:=true else cal1.week[5]:=false;
   if get_object_data('saturday')='3' then  cal1.week[6]:=true else cal1.week[6]:=false;
   if get_object_data('sunday')='3' then  cal1.week[7]:=true else cal1.week[7]:=false;
@@ -120,71 +118,71 @@ wny1:=200;
 wnx2:=GridX(2,3);
 wny2:=600;
 
-include_object('window1','window','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½.. ','no','','',wnx1,wny1,wnx2,wny2+20);
+include_object('window1','window','Εύρεση χρόνου για ραντεβού.. ','no','','',wnx1,wny1,wnx2,wny2+20);
 draw_all;
 delete_object('window1','name'); 
 
 wnx1:=wnx1+40;
 wny1:=wny1+55;
-include_object('usercomm','comment','οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ : ','no','','',wnx1,wny1,0,0); 
+include_object('usercomm','comment','Όνομα χρήστη : ','no','','',wnx1,wny1,0,0); 
 bufstr:=Users_As_A_List; 
 include_object('user','dropdown',bufstr,'no','','',X2(last_object)+5,Y1(last_object)-4,wnx2-40,Y1(last_object)+34);
 set_object_data('user','VALUE',Convert2String(Get_User_Number(Get_Current_User)),0);
 
-include_object('protimisi1_com','comment','οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ : ','no','','',wnx1,Y2(last_object)+18,0,0);
+include_object('protimisi1_com','comment','Όσο το δυνατόν νωρίτερα τα ραντεβού : ','no','','',wnx1,Y2(last_object)+18,0,0);
 include_object('prot_1','checkbox','1','no','','',X2(last_object)+5,Y1(last_object)-3,0,0);
-include_object('protimisi2_com','comment','οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ : ','no','','',wnx1,Y2(last_object)+7,0,0);
+include_object('protimisi2_com','comment','Όσο το δυνατόν αργότερα τα ραντεβού : ','no','','',wnx1,Y2(last_object)+7,0,0);
 include_object('prot_2','checkbox','1','no','','',X2(last_object)+5,Y1(last_object)-3,0,0);
-include_object('protimisi3_com','comment','οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½oοΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ : ','no','','',wnx1,Y2(last_object)+7,0,0);
+include_object('protimisi3_com','comment','Αραιά ραντεβού σε πλάτoς ημερών : ','no','','',wnx1,Y2(last_object)+7,0,0);
 include_object('prot_3','checkbox','1','no','','',X2(last_object)+5,Y1(last_object)-3,0,0);
-include_object('protimisi4_com','comment','οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½oοΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ : ','no','','',wnx1,Y2(last_object)+7,0,0);
+include_object('protimisi4_com','comment','Πυκνά ραντεβού σε πλάτoς ημερών : ','no','','',wnx1,Y2(last_object)+7,0,0);
 include_object('prot_4','checkbox','1','no','','',X2(last_object)+5,Y1(last_object)-3,0,0);
-include_object('protimisie_com','comment','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ , οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ : ','no','','',wnx1,Y2(last_object)+7,0,0);
+include_object('protimisie_com','comment','Επείγον , πρώτη δυνατή ημερομηνία : ','no','','',wnx1,Y2(last_object)+7,0,0);
 include_object('prot_e','checkbox','1','no','','',X2(last_object)+5,Y1(last_object)-3,0,0);
 
-include_object('keno_com','comment','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ : ','no','','',wnx1,Y2(last_object)+10,0,0);
+include_object('keno_com','comment','Ενδιάμεσο κενό ραντεβού : ','no','','',wnx1,Y2(last_object)+10,0,0);
 include_object('keno','textbox','2','no','','',X2(last_object)+5,Y1(last_object)-3,X2(last_object)+35,0);
-include_object('keno_com2','comment',' οΏ½οΏ½οΏ½οΏ½οΏ½ ','no','','',X2(last_object)+5,Y1(last_object)+3,0,0);
+include_object('keno_com2','comment',' λεπτά ','no','','',X2(last_object)+5,Y1(last_object)+3,0,0);
 
-include_object('yper_com','comment','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ : ','no','','',wnx1,Y2(last_object)+14,0,0);
+include_object('yper_com','comment','Υπερωρίες έως : ','no','','',wnx1,Y2(last_object)+14,0,0);
 include_object('yperorira','textbox','10','no','','',X2(last_object)+5,Y1(last_object)-3,X2(last_object)+35,0);
-include_object('yper_com2','comment',' οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',X2(last_object)+5,Y1(last_object)+3,0,0);
+include_object('yper_com2','comment',' λεπτά την ημέρα','no','','',X2(last_object)+5,Y1(last_object)+3,0,0);
                                                               //wnx1+30,wny1+40,wnx2-30,wny2-30
-include_object('bord1','border','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',wnx1-10,wny1-15,wnx2-30,Y2(last_object)+10);
+include_object('bord1','border','Προτιμήσεις γιατρού','no','','',wnx1-10,wny1-15,wnx2-30,Y2(last_object)+10);
 
-include_object('bord2','border','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',wnx1-10,Y2(last_object)+15,wnx2-30,wny2-30);
-include_object('days','comment',' οΏ½   οΏ½   οΏ½   οΏ½   οΏ½   οΏ½   οΏ½','no','','',wnx1-10+5,Y1(last_object)+8,0,0);
+include_object('bord2','border','Προτιμήσεις ασθενή','no','','',wnx1-10,Y2(last_object)+15,wnx2-30,wny2-30);
+include_object('days','comment',' Δ   Τ   Τ   Π   Π   Σ   Κ','no','','',wnx1-10+5,Y1(last_object)+8,0,0);
 include_object('monday','checkbox','1','no','','',wnx1-10+5,Y1(last_object)+15,0,0);
 include_object('tuesday','checkbox','1','no','','',X2(last_object)+2,Y1(last_object),0,0);
-include_object('thursday','checkbox','1','no','','',X2(last_object)+2,Y1(last_object),0,0);
+include_object('thirsday','checkbox','1','no','','',X2(last_object)+2,Y1(last_object),0,0);
 include_object('wednesday','checkbox','1','no','','',X2(last_object)+2,Y1(last_object),0,0);
 include_object('friday','checkbox','1','no','','',X2(last_object)+2,Y1(last_object),0,0);
 include_object('saturday','checkbox','1','no','','',X2(last_object)+2,Y1(last_object),0,0);
 include_object('sunday','checkbox','1','no','','',X2(last_object)+2,Y1(last_object),0,0);
 
-include_object('from_c','comment','οΏ½οΏ½οΏ½ : ','no','','',X2(last_object)+30,Y1(last_object)-10,0,0);
+include_object('from_c','comment','Από : ','no','','',X2(last_object)+30,Y1(last_object)-10,0,0);
 include_object('fromhour','textbox','','no','','',X2(last_object)+2,Y1(last_object),X2(last_object)+32,0);
 include_object('from_c2','comment',' : ','no','','',X2(last_object)+5,Y1(last_object),0,0);
 include_object('fromminute','textbox','','no','','',X2(last_object)+2,Y1(last_object),X2(last_object)+32,0);
 
-include_object('to_c','comment','οΏ½οΏ½οΏ½ : ','no','','',X1('from_c'),Y2(last_object)+10,0,0);
+include_object('to_c','comment','Έως : ','no','','',X1('from_c'),Y2(last_object)+10,0,0);
 include_object('tohour','textbox','','no','','',X2(last_object)+2,Y1(last_object),X2(last_object)+32,0);
 include_object('to_c2','comment',' : ','no','','',X2(last_object)+5,Y1(last_object),0,0);
 include_object('tominute','textbox','','no','','',X2(last_object)+2,Y1(last_object),X2(last_object)+32,0);
 
-include_object('duration_c','comment','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ : ','no','','',X1('monday'),Y2('monday')+10,0,0);
+include_object('duration_c','comment','Διάρκεια : ','no','','',X1('monday'),Y2('monday')+10,0,0);
 include_object('duration','textbox','','no','','',X2(last_object)+2,Y1(last_object),X2(last_object)+32,0);
-include_object('duration_c2','comment',' οΏ½οΏ½οΏ½οΏ½οΏ½ ','no','','',X2(last_object)+5,Y1(last_object),0,0);
+include_object('duration_c2','comment',' λεπτά ','no','','',X2(last_object)+5,Y1(last_object),0,0);
 
-include_object('fromday_c','comment','οΏ½οΏ½οΏ½','no','','',X1('monday'),Y2('duration')+16,0,0);
+include_object('fromday_c','comment','Από','no','','',X1('monday'),Y2('duration')+16,0,0);
 include_object('fromday','textbox','','no','','',X2(last_object)+5,Y1(last_object)-3,X2(last_object)+45,0);
-include_object('fromday_c2','comment',' οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ ','no','','',X2(last_object)+5,Y1(last_object)+3,0,0);
+include_object('fromday_c2','comment',' έως και ','no','','',X2(last_object)+5,Y1(last_object)+3,0,0);
 include_object('today','textbox','','no','','',X2(last_object)+5,Y1(last_object)-3,X2(last_object)+45,0);
-include_object('fromday_c3','comment','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½','no','','',X2(last_object)+5,Y1(last_object)+3,0,0);
+include_object('fromday_c3','comment','ημέρες από τώρα','no','','',X2(last_object)+5,Y1(last_object)+3,0,0);
 
 
 include_object('ok','buttonc','OK','no','','',GridX(1,3)+30,Y2('bord2')+10,0,0);
-include_object('exit','buttonc','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½','no','','',X2(last_object)+10,Y1(last_object),0,0);
+include_object('exit','buttonc','Έξοδος','no','','',X2(last_object)+10,Y1(last_object),0,0);
 draw_all;
 
 fasttextboxchange(1);
@@ -233,7 +231,7 @@ repeat
                                    end;
  if get_object_data('ok')='4' then begin
                                     set_button('ok',0);
-                                    MessageBox (0, 'οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ !' , ' ', 0 + MB_ICONASTERISK);
+                                    MessageBox (0, 'Η λειτουργία είναι υπο κατασκευή !' , ' ', 0 + MB_ICONASTERISK);
                                     save_pick_next_free_day_form_to_var;
                                     Calender_Gather_Free_Time(cal1);
                                     set_button('exit',1);
@@ -253,7 +251,7 @@ begin
 flush_gui_memory(0);
 borderx:=(GetMaxX-640) div 2;
 bordery:=(GetMaxY-480) div 2;
-include_object('window1','window','οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½.. ','no','','',borderx,bordery,borderx+640,bordery+480);
+include_object('window1','window','Εύρεση χρόνου για ραντεβού.. ','no','','',borderx,bordery,borderx+640,bordery+480);
 draw_all;
 delete_object('window1','name'); 
 
