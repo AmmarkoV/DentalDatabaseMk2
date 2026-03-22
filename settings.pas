@@ -508,7 +508,7 @@ if get_object_data('findeditor_picgrab')='4' then begin
                                            set_object_data('findeditor_picgrab','value','1',1);
                                            if SelectFileGeneral(tmptfile,'Picture Grab Programs,exe',true) then
                                            begin
-                                            set_object_data('picgrab','value',tmptfile,1);
+                                            set_object_data('picgrab','value',AnsiString(tmptfile),1);
                                             draw_object_by_name('picgrab');
                                            end;
                                            ChangeCursorIcon(mouse_icon_resource('arrow')); 
@@ -518,7 +518,7 @@ if get_object_data('find_backupdrive')='4' then begin
                                            if SelectFileGeneral(tmptfile,'Save Directory,dat',false) then
                                            begin
                                             tmptfile:=AnalyseFileName(AnsiString(tmptfile),'directory');
-                                            set_object_data('backupdrive','value',tmptfile,1);
+                                            set_object_data('backupdrive','value',AnsiString(tmptfile),1);
                                             draw_object_by_name('backupdrive');
                                            end;
                                            ChangeCursorIcon(mouse_icon_resource('arrow')); 
@@ -527,7 +527,7 @@ if get_object_data('findeditor_image')='4' then begin
                                            set_object_data('findeditor_image','value','1',1);
                                            if SelectFileGeneral(tmptfile,'Image Editors Programs,exe',true) then
                                            begin
-                                            set_object_data('image','value',tmptfile,1);
+                                            set_object_data('image','value',AnsiString(tmptfile),1);
                                             draw_object_by_name('image');
                                            end;
                                            ChangeCursorIcon(mouse_icon_resource('arrow')); 
@@ -536,7 +536,7 @@ if get_object_data('findeditor_browser')='4' then begin
                                            set_object_data('findeditor_browser','value','1',1);
                                            if SelectFileGeneral(tmptfile,'Browser Programs,exe',true) then
                                            begin
-                                            set_object_data('browser','value',tmptfile,1);
+                                            set_object_data('browser','value',AnsiString(tmptfile),1);
                                             draw_object_by_name('browser');
                                            end;
                                            ChangeCursorIcon(mouse_icon_resource('arrow')); 
@@ -545,7 +545,7 @@ if get_object_data('findeditor_edit')='4' then begin
                                            set_object_data('findeditor_edit','value','1',1);
                                            if SelectFileGeneral(tmptfile,'Editor Programs,exe',true) then
                                            begin
-                                            set_object_data('edit','value',tmptfile,1);
+                                            set_object_data('edit','value',AnsiString(tmptfile),1);
                                             draw_object_by_name('edit');
                                            end;
                                            ChangeCursorIcon(mouse_icon_resource('arrow')); 
@@ -557,7 +557,7 @@ if get_object_data('findeditor_encrypt')='4' then begin
                                           begin
                                            if SelectFileGeneral(tmptfile,'Security Programs,exe',true) then
                                            begin
-                                            set_object_data('encrypt','value',tmptfile,1);
+                                            set_object_data('encrypt','value',AnsiString(tmptfile),1);
                                             draw_object_by_name('encrypt');
                                            end;
                                            ChangeCursorIcon(mouse_icon_resource('arrow'));
@@ -570,7 +570,7 @@ if get_object_data('findeditor_backup')='4' then begin
                                           begin
                                            if SelectFileGeneral(tmptfile,'Pack Programs,exe',true) then
                                            begin
-                                            set_object_data('backup_prog','value',tmptfile,1);
+                                            set_object_data('backup_prog','value',AnsiString(tmptfile),1);
                                             draw_object_by_name('backup_prog');
                                            end;
                                            ChangeCursorIcon(mouse_icon_resource('arrow'));
@@ -583,7 +583,7 @@ if get_object_data('find_sched')='4' then begin
                                           begin
                                            if SelectFileGeneral(tmptfile,'Task Scheduling Programs,exe',true) then
                                            begin
-                                            set_object_data('sched','value',tmptfile,1);
+                                            set_object_data('sched','value',AnsiString(tmptfile),1);
                                             draw_object_by_name('sched');
                                            end;
                                            ChangeCursorIcon(mouse_icon_resource('arrow'));
@@ -596,7 +596,7 @@ if get_object_data('findeditor_synch')='4' then begin
                                           begin
                                            if SelectFileGeneral(tmptfile,'Synchronizing Programs,exe',true) then
                                            begin
-                                            set_object_data('synch','value',tmptfile,1);
+                                            set_object_data('synch','value',AnsiString(tmptfile),1);
                                             draw_object_by_name('synch');
                                            end;
                                            ChangeCursorIcon(mouse_icon_resource('arrow')); 
@@ -607,7 +607,7 @@ if get_object_data('find_shortcut')='4' then begin
                                            set_object_data('find_shortcut','value','1',1);
                                             if SelectFileGeneral(tmptfile,'Programs,exe',true) then
                                            begin
-                                            set_object_data('shortcut','value',tmptfile,1);
+                                            set_object_data('shortcut','value',AnsiString(tmptfile),1);
                                             draw_object_by_name('shortcut');
                                            end;
                                            ChangeCursorIcon(mouse_icon_resource('arrow'));  
