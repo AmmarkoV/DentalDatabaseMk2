@@ -1278,10 +1278,12 @@ if buttonid<=0 then buttonid:=1;
 if buttonid>=4 then buttonid:=1;
 if mousebtns[buttonid]<>123 then MouseButton:=mousebtns[buttonid] else
 begin
- PeekMessage(@AMessage,windowhandles,0,0,PM_REMOVE);
-//{Peek}GetMessage(@AMessage,0,0,0{,PM_NOREMOVE});
-TranslateMessage(@AMessage);
-DispatchMessage(@AMessage);
+ if PeekMessage(@AMessage,windowhandles,WM_MOUSEFIRST,WM_MOUSELAST,PM_REMOVE) then
+ begin
+  //{Peek}GetMessage(@AMessage,0,0,0{,PM_NOREMOVE});
+  TranslateMessage(@AMessage);
+  DispatchMessage(@AMessage);
+ end;
 if mousebtns[buttonid]<>123 then MouseButton:=mousebtns[buttonid] else
                                  MouseButton:=0;
 end;
@@ -1293,10 +1295,12 @@ var i:integer;
 begin
 if mousebtns[4]<>123 then MouseScroll:=mousebtns[4] else
 begin
- PeekMessage(@AMessage,windowhandles,0,0,PM_REMOVE);
+ if PeekMessage(@AMessage,windowhandles,WM_MOUSEFIRST,WM_MOUSELAST,PM_REMOVE) then
+ begin
 //{Peek}GetMessage(@AMessage,0,0,0{,PM_NOREMOVE});
  TranslateMessage(AMessage);
  dispatchMessage(AMessage);
+ end;
  if mousebtns[4]<>123 then MouseScroll:=mousebtns[4] else
                            MouseScroll:=0;
  //SendMessage(windowhandles,WM_SETCURSOR,0,0);  
@@ -1679,7 +1683,7 @@ begin
  vkpressed:=608265;
 end;
 
-function ReadKeyFast:string;
+function ReadKeyFastOLD:string;
 var keybuffer:string;
 begin
  keybuffer:='nokey';
@@ -1689,16 +1693,39 @@ begin
  dispatchMessage(@AMessage);
  if vkpressed<>608265 then keybuffer:=key_database(vkpressed); 
 if keybuffer<>'nokey' then begin
-                            readkeyfast:=keybuffer;
+                            ReadKeyFastOLD:=keybuffer;
                             last_keypress:=vkpressed;
                            end  else
                            begin
-                            readkeyfast:='';
+                            ReadKeyFastOLD:='';
                             last_keypress:=0;
                            end;
 
  vkpressed:=608265;
 end;
+
+function ReadKeyFast:string;
+var keybuffer:string;
+begin
+ keybuffer:='nokey';
+ vkpressed:=608265;
+ while (keybuffer='nokey') and PeekMessage(@AMessage,windowhandles,0,0,PM_REMOVE) do
+  begin
+   TranslateMessage(@AMessage);
+   dispatchMessage(@AMessage);
+   if vkpressed<>608265 then keybuffer:=key_database(vkpressed);
+  end;
+ if keybuffer<>'nokey' then begin
+                             readkeyfast:=keybuffer;
+                             last_keypress:=vkpressed;
+                            end else
+                            begin
+                             readkeyfast:='';
+                             last_keypress:=0;
+                            end;
+ vkpressed:=608265;
+end;
+
 
 function KeyPressed:integer;
 begin
