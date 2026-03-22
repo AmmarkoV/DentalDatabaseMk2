@@ -1146,8 +1146,8 @@ if (get_object_data('add_smth')='4') then begin
                                                                                                  activation:='';
                                               if filled_up then patientworks:=patientworks+1;
                                             end;
-                                              Draw_Works_Form(where2add,where2add);
-                                              //goto start_show_data_noclear;
+                                              //Draw_Works_Form(where2add,where2add);
+                                              goto start_show_data_noclear;
                                              end;
                                            {filled_up:=true;
                                            for i:=startrecord to endrecord do
@@ -1307,8 +1307,8 @@ if (get_object_data('hide')='4') then begin
                                                              activation:='payed'+bufstr; 
                                                             end;
 
-                                               Draw_Works_Form(where2add,where2add);
-                                               //goto start_show_data_noclear;
+                                               //Draw_Works_Form(where2add,where2add);
+                                               goto start_show_data_noclear;
                                               end;
                                          end;
                                       end;
