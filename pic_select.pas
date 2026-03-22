@@ -224,7 +224,7 @@ end;
 
 function GUI_PicProperties(x,y:integer):integer;
 const
-  prepare_menu: array[1..5] of ShortString = (
+  prepare_menu: array[1..5] of string = (
     '’νοιγμα καρτέλας εικόνας',
     'Αλλαγή στοιχείων εικόνας',
     'Ορισμός ως φωτογραφία ασθενούς',
