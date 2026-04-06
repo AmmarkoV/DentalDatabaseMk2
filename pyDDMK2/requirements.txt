@@ -1,0 +1,13 @@
+# pyDDMK2 - Python port of Dental Database MK2
+# Requirements file
+
+# GUI Framework
+wxPython>=4.2.0
+
+# Image processing (for future image handling)
+Pillow>=10.0.0
+
+# Date/time utilities
+python-dateutil>=2.8.0
+
+# Database is SQLite (built-in, no installation needed)
