@@ -1,14 +1,17 @@
 """
-Appointment scheduling module.
+Appointment scheduling module - stores appointments in .dat files.
 Ported from calender.pas
 """
+import os
+import re
 from datetime import datetime, date, timedelta
-from typing import List, Optional
+from pathlib import Path
+from typing import List, Optional, Dict, Any
 import uuid
 
 from models import Appointment
-from database import db
 from people import PatientManager
+from tools import get_app_path
 
 # Greek month names
 MONTHS_GR = [
@@ -21,12 +24,189 @@ DAYS_GR = ["Κυριακή", "Δευτέρα", "Τρίτη", "Τετάρτη", "
 
 
 class CalendarManager:
-    """Manages appointments and calendar operations."""
+    """Manages appointments stored in .dat files alongside patient records."""
+
+    @staticmethod
+    def get_database_dir() -> Path:
+        """Get the Database directory path."""
+        return get_app_path() / "Database"
+
+    @staticmethod
+    def get_patient_filepath(code: str) -> Path:
+        """Get the filepath for a patient's .dat file."""
+        return CalendarManager.get_database_dir() / f"{code}.dat"
 
     @staticmethod
     def generate_appointment_id() -> str:
         """Generate unique appointment ID."""
         return f"A{datetime.now().strftime('%Y%m%d%H%M%S')}{uuid.uuid4().hex[:4].upper()}"
+
+    @staticmethod
+    def _parse_date(date_str: str) -> Optional[date]:
+        """Parse date from DAT format (DD,MM,YYYY)."""
+        if not date_str:
+            return None
+        try:
+            parts = date_str.split(',')
+            if len(parts) == 3:
+                day = int(parts[0])
+                month = int(parts[1])
+                year = int(parts[2])
+                return date(year, month, day)
+        except (ValueError, IndexError):
+            pass
+        return None
+
+    @staticmethod
+    def _parse_datetime(dt_str: str) -> Optional[datetime]:
+        """Parse datetime from DAT format (DD,MM,YYYY,HH,MM)."""
+        if not dt_str:
+            return None
+        try:
+            parts = dt_str.split(',')
+            if len(parts) >= 6:
+                day = int(parts[0])
+                month = int(parts[1])
+                year = int(parts[2])
+                hour = int(parts[3])
+                minute = int(parts[4])
+                second = int(parts[5]) if len(parts) > 5 else 0
+                return datetime(year, month, day, hour, minute, second)
+        except (ValueError, IndexError):
+            pass
+        return None
+
+    @staticmethod
+    def _format_date(d: date) -> str:
+        """Format date to DAT format (DD,MM,YYYY)."""
+        if not d:
+            return ""
+        return f"{d.day},{d.month},{d.year}"
+
+    @staticmethod
+    def _format_datetime(dt: datetime) -> str:
+        """Format datetime to DAT format (DD,MM,YYYY,HH,MM,SS)."""
+        if not dt:
+            return ""
+        return f"{dt.day},{dt.month},{dt.year},{dt.hour},{dt.minute},{dt.second}"
+
+    @staticmethod
+    def _read_patient_file(code: str) -> Dict[str, Any]:
+        """Read a patient's .dat file."""
+        filepath = CalendarManager.get_patient_filepath(code)
+        data = {'appointments': []}
+
+        if not filepath.exists():
+            return data
+
+        for encoding in ['windows-1253', 'utf-8']:
+            try:
+                with open(filepath, 'r', encoding=encoding) as f:
+                    for line in f:
+                        line = line.strip()
+                        if not line:
+                            continue
+
+                        match = re.match(r'^(\w+)\((.*)\)$', line)
+                        if match:
+                            key = match.group(1).upper()
+                            value = match.group(2)
+
+                            if key == 'APPOINTMENT':
+                                # Format: id,date_time,duration,type,status,notes,doctor
+                                parts = value.split(',')
+                                if len(parts) >= 6:
+                                    data['appointments'].append({
+                                        'id': parts[0],
+                                        'date_time': ','.join(parts[1:6]),  # DD,MM,YYYY,HH,MM,SS
+                                        'duration': int(parts[6]) if len(parts) > 6 and parts[6].isdigit() else 30,
+                                        'type': parts[7] if len(parts) > 7 else 'consultation',
+                                        'status': parts[8] if len(parts) > 8 else 'scheduled',
+                                        'notes': parts[9] if len(parts) > 9 else '',
+                                        'doctor': parts[10] if len(parts) > 10 else '',
+                                    })
+                            else:
+                                data[key] = value
+                return data
+            except UnicodeDecodeError:
+                continue
+
+        return data
+
+    @staticmethod
+    def _write_patient_file(code: str, data: Dict[str, Any]) -> bool:
+        """Write data to patient's .dat file."""
+        filepath = CalendarManager.get_patient_filepath(code)
+
+        try:
+            lines = []
+
+            # Write basic fields
+            for key in ['CODE', 'SURNAME', 'NAME', 'FATHER_NAME', 'MOTHER_NAME',
+                       'AREA', 'TELEPHONE', 'CELLPHONE', 'ADDRESS', 'PROFESSION',
+                       'EMAIL', 'COMMENTS']:
+                if key in data and data[key]:
+                    lines.append(f"{key}({data[key]})")
+
+            # Write BIRTH
+            if 'BIRTH' in data and data['BIRTH']:
+                lines.append(f"BIRTH({data['BIRTH']})")
+
+            # Write NEXT_APPOINTMENT
+            if 'NEXT_APPOINTMENT' in data and data['NEXT_APPOINTMENT']:
+                lines.append(f"NEXT_APPOINTMENT({data['NEXT_APPOINTMENT']})")
+
+            # Write WORK entries
+            if 'works' in data:
+                for work in data['works']:
+                    work_str = ','.join(str(v) for v in [
+                        work.get('description', ''),
+                        work.get('price', 0),
+                        work.get('discount', 0),
+                        work.get('paid', 0),
+                        work.get('comments', ''),
+                        work.get('user', ''),
+                        work.get('day', 0),
+                        work.get('month', 0),
+                        work.get('year', 0),
+                    ])
+                    lines.append(f"WORK({work_str})")
+
+            # Write APPOINTMENT entries
+            for apt in data.get('appointments', []):
+                apt_str = ','.join(str(v) for v in [
+                    apt.get('id', ''),
+                    apt.get('date_time', ''),
+                    apt.get('duration', 30),
+                    apt.get('type', 'consultation'),
+                    apt.get('status', 'scheduled'),
+                    apt.get('notes', ''),
+                    apt.get('doctor', ''),
+                ])
+                lines.append(f"APPOINTMENT({apt_str})")
+
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write('\n'.join(lines))
+                f.write('\n')
+
+            return True
+        except Exception as e:
+            print(f"Error writing patient file: {e}")
+            return False
+
+    @staticmethod
+    def _data_to_appointment(data: Dict[str, Any], patient_code: str) -> Appointment:
+        """Convert appointment data dict to Appointment object."""
+        return Appointment(
+            id=data.get('id', ''),
+            patient_code=patient_code,
+            date_time=CalendarManager._parse_datetime(data.get('date_time', '')),
+            duration_minutes=data.get('duration', 30),
+            appointment_type=data.get('type', 'consultation'),
+            status=data.get('status', 'scheduled'),
+            notes=data.get('notes', ''),
+            doctor_code=data.get('doctor', '')
+        )
 
     @staticmethod
     def create_appointment(
@@ -37,26 +217,47 @@ class CalendarManager:
         notes: str = "",
         doctor_code: str = ""
     ) -> Optional[Appointment]:
-        """Create a new appointment."""
-        appointment = Appointment(
-            id=CalendarManager.generate_appointment_id(),
-            patient_code=patient_code,
-            date_time=date_time,
-            duration_minutes=duration_minutes,
-            appointment_type=appointment_type,
-            status="scheduled",
-            notes=notes,
-            doctor_code=doctor_code
-        )
+        """Create a new appointment in patient's .dat file."""
+        # Read existing patient data
+        data = CalendarManager._read_patient_file(patient_code)
 
-        if db.create_appointment(appointment):
-            return appointment
+        # Create appointment
+        appointment_id = CalendarManager.generate_appointment_id()
+        appointment_data = {
+            'id': appointment_id,
+            'date_time': CalendarManager._format_datetime(date_time),
+            'duration': duration_minutes,
+            'type': appointment_type,
+            'status': 'scheduled',
+            'notes': notes,
+            'doctor': doctor_code,
+        }
+
+        # Add to appointments list
+        if 'appointments' not in data:
+            data['appointments'] = []
+        data['appointments'].append(appointment_data)
+
+        # Write back to file
+        if CalendarManager._write_patient_file(patient_code, data):
+            return CalendarManager._data_to_appointment(appointment_data, patient_code)
         return None
 
     @staticmethod
-    def get_appointments_by_date(display_date: date) -> List[Appointment]:
-        """Get all appointments for a specific date."""
-        return db.get_appointments_by_date(display_date)
+    def get_appointments_by_date(target_date: date) -> List[Appointment]:
+        """Get all appointments for a specific date by scanning all patient files."""
+        appointments = []
+        patients = PatientManager.get_all_patients()
+
+        for patient in patients:
+            data = CalendarManager._read_patient_file(patient.code)
+            for apt_data in data.get('appointments', []):
+                apt_date = CalendarManager._parse_date(apt_data.get('date_time', '')[:10])
+                if apt_date == target_date:
+                    appointment = CalendarManager._data_to_appointment(apt_data, patient.code)
+                    appointments.append(appointment)
+
+        return sorted(appointments, key=lambda a: a.date_time)
 
     @staticmethod
     def get_appointments_by_patient(
@@ -65,32 +266,32 @@ class CalendarManager:
         end_date: date = None
     ) -> List[Appointment]:
         """Get appointments for a patient within date range."""
-        if not start_date:
-            start_date = date.today()
-        if not end_date:
-            end_date = start_date + timedelta(days=365)
-
+        data = CalendarManager._read_patient_file(patient_code)
         appointments = []
-        current_date = start_date
-        while current_date <= end_date:
-            day_appointments = CalendarManager.get_appointments_by_date(current_date)
-            for apt in day_appointments:
-                if apt.patient_code == patient_code:
-                    appointments.append(apt)
-            current_date += timedelta(days=1)
+
+        for apt_data in data.get('appointments', []):
+            appointment = CalendarManager._data_to_appointment(apt_data, patient_code)
+
+            if start_date and appointment.date_time.date() < start_date:
+                continue
+            if end_date and appointment.date_time.date() > end_date:
+                continue
+
+            appointments.append(appointment)
 
         return sorted(appointments, key=lambda a: a.date_time)
 
     @staticmethod
     def get_appointment(appointment_id: str) -> Optional[Appointment]:
         """Get appointment by ID."""
-        # Search through recent dates
-        for days_offset in range(365):
-            check_date = date.today() + timedelta(days=days_offset - 180)
-            appointments = CalendarManager.get_appointments_by_date(check_date)
-            for apt in appointments:
-                if apt.id == appointment_id:
-                    return apt
+        patients = PatientManager.get_all_patients()
+
+        for patient in patients:
+            data = CalendarManager._read_patient_file(patient.code)
+            for apt_data in data.get('appointments', []):
+                if apt_data.get('id') == appointment_id:
+                    return CalendarManager._data_to_appointment(apt_data, patient.code)
+
         return None
 
     @staticmethod
@@ -102,14 +303,44 @@ class CalendarManager:
         status: str = None,
         notes: str = None
     ) -> bool:
-        """Update appointment."""
-        # TODO: Implement
+        """Update appointment in patient's .dat file."""
+        patients = PatientManager.get_all_patients()
+
+        for patient in patients:
+            data = CalendarManager._read_patient_file(patient.code)
+            for apt_data in data.get('appointments', []):
+                if apt_data.get('id') == appointment_id:
+                    # Update fields
+                    if date_time is not None:
+                        apt_data['date_time'] = CalendarManager._format_datetime(date_time)
+                    if duration_minutes is not None:
+                        apt_data['duration'] = duration_minutes
+                    if appointment_type is not None:
+                        apt_data['type'] = appointment_type
+                    if status is not None:
+                        apt_data['status'] = status
+                    if notes is not None:
+                        apt_data['notes'] = notes
+
+                    return CalendarManager._write_patient_file(patient.code, data)
+
         return False
 
     @staticmethod
     def delete_appointment(appointment_id: str) -> bool:
-        """Delete appointment."""
-        # TODO: Implement
+        """Delete appointment from patient's .dat file."""
+        patients = PatientManager.get_all_patients()
+
+        for patient in patients:
+            data = CalendarManager._read_patient_file(patient.code)
+            appointments = data.get('appointments', [])
+
+            for i, apt_data in enumerate(appointments):
+                if apt_data.get('id') == appointment_id:
+                    appointments.pop(i)
+                    data['appointments'] = appointments
+                    return CalendarManager._write_patient_file(patient.code, data)
+
         return False
 
     @staticmethod
@@ -217,10 +448,8 @@ class CalendarManager:
         else:
             last_day = date(year, month + 1, 1) - timedelta(days=1)
 
-        # Start from Sunday (Monday in Greece, but we'll use Sunday for compatibility)
+        # Start from Monday (standard in Greece)
         start_weekday = first_day.weekday()
-        # Adjust for Sunday start (Python uses Monday=0)
-        start_weekday = (start_weekday + 1) % 7
 
         # First week - pad with empty days
         first_week = [None] * start_weekday
@@ -245,13 +474,6 @@ class CalendarManager:
             calendar_grid.append(week)
 
         return calendar_grid
-
-    @staticmethod
-    def get_appointments_for_day(day_date: date) -> List[Appointment]:
-        """Get appointments for a specific day."""
-        if day_date is None:
-            return []
-        return CalendarManager.get_appointments_by_date(day_date)
 
     @staticmethod
     def format_appointment_display(appointment: Appointment) -> str:

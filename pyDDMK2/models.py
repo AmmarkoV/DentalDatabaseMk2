@@ -3,8 +3,8 @@ Data models for the dental database.
 Ported from various .pas record definitions
 """
 from dataclasses import dataclass, field
-from datetime import datetime
-from typing import List, Optional
+from datetime import datetime, date
+from typing import List, Optional, Dict, Any
 from enum import Enum
 
 class PatientStatus(Enum):
@@ -33,9 +33,9 @@ class User:
 @dataclass
 class Patient:
     """Patient record model."""
-    code: str  # Unique patient code
-    surname: str
-    name: str
+    code: str = ""  # Unique patient code
+    surname: str = ""
+    name: str = ""
     father_name: str = ""
     mother_name: str = ""
     area: str = ""
@@ -48,10 +48,11 @@ class Patient:
     next_visit: Optional[datetime] = None
     status: PatientStatus = PatientStatus.ACTIVE
     comments: str = ""
+    works: List[Dict[str, Any]] = field(default_factory=list)  # Legacy works from .dat files
     created_at: datetime = field(default_factory=datetime.now)
     updated_at: Optional[datetime] = None
 
-    def full_name(self) -> str:
+    def get_full_name(self) -> str:
         return f"{self.surname} {self.name}"
 
     def search_text(self) -> str:
@@ -151,3 +152,54 @@ class Setting:
     value: str
     category: str = "general"
     description: str = ""
+
+
+@dataclass
+class PatientWork:
+    """A work/treatment record for a patient."""
+    work_id: str
+    price: float = 0.0
+    discount: float = 0.0
+    paid: float = 0.0
+    comments: str = ""
+    user: str = ""
+    day: int = 0
+    month: int = 0
+    year: int = 0
+
+    @property
+    def date(self) -> Optional[date]:
+        """Return work date if valid."""
+        if self.year and self.month and self.day:
+            try:
+                return date(self.year, self.month, self.day)
+            except ValueError:
+                return None
+        return None
+
+    @property
+    def outstanding(self) -> float:
+        """Amount still owed."""
+        return self.price - self.paid
+
+
+@dataclass
+class ToothData:
+    """Data for a single tooth surface."""
+    tooth_number: int
+    part: int  # 1-6: root, lingual, mesial, distal, occlusal, palatal/buccal
+    doctor: str = ""
+    work: str = ""
+    comments: str = ""
+    technical: str = ""
+    status: str = ""
+    color_r: int = 0
+    color_g: int = 0
+    color_b: int = 0
+
+
+@dataclass
+class ToothAux:
+    """Auxiliary tooth data (crown, extraction, etc.)."""
+    tooth_number: int
+    aux_code: str  # VIDA, SEALANT, X, O.O., etc.

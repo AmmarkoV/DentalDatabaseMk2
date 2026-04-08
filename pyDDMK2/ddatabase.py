@@ -5,6 +5,7 @@ Ported from ddatabase.pas
 import sys
 import wx
 from pathlib import Path
+from datetime import date
 
 # Add project directory to path
 project_dir = Path(__file__).parent
@@ -14,6 +15,11 @@ from ammargui import Window, Button, TextBox, Label, message_box, message_box_ye
 from userlogin import Authentication, UserManager
 from settings import SettingsManager
 from the_works import WorkTypeManager
+from patients_dialogs import SearchPatientDialog, NewPatientDialog, OpenPatientDialog
+from people import PatientManager
+from calendar_dialogs import CalendarDialog, NewAppointmentDialog, AppointmentListDialog
+from management_dialogs import DailyStatisticsDialog, MonthlyReportDialog, BackupDialog, SettingsDialog
+from translations import translate_en_to_gr as T
 
 
 class LoginFrame(wx.Dialog):
@@ -91,6 +97,8 @@ class MainFrame(Window):
         patient_menu.Append(102, "Open Patient\tCtrl+O", "Open existing patient")
         patient_menu.AppendSeparator()
         patient_menu.Append(103, "Search Patient\tCtrl+F", "Search for patient")
+        patient_menu.AppendSeparator()
+        patient_menu.Append(104, "Import Legacy Patients\tCtrl+I", "Import patients from .dat files")
         menubar.Append(patient_menu, "&Patients")
 
         # Calendar menu
@@ -120,6 +128,7 @@ class MainFrame(Window):
         self.Bind(wx.EVT_MENU, self._on_new_patient, id=101)
         self.Bind(wx.EVT_MENU, self._on_open_patient, id=102)
         self.Bind(wx.EVT_MENU, self._on_search_patient, id=103)
+        self.Bind(wx.EVT_MENU, self._on_import_patients, id=104)
         self.Bind(wx.EVT_MENU, self._on_calendar, id=201)
         self.Bind(wx.EVT_MENU, self._on_new_appointment, id=202)
         self.Bind(wx.EVT_MENU, self._on_daily_statistics, id=301)
@@ -139,40 +148,95 @@ class MainFrame(Window):
         self.SetStatusText("Ready")
 
     def _on_new_patient(self, event):
-        self.SetStatusText("New Patient - Feature in development")
-        message_box("New Patient feature - Coming soon!", "Info")
+        self.SetStatusText(T("New Patient"))
+        dialog = NewPatientDialog(self)
+        if dialog.ShowModal() == wx.ID_OK:
+            patient = dialog.get_new_patient()
+            if patient:
+                self.SetStatusText(f"{T('New patient created')}: {patient.code} - {patient.surname} {patient.name}")
+                # Optionally open the new patient
+                if message_box_yes_no(f"{T('Open patient')} {patient.surname} {patient.name}?", T("Question")):
+                    self._open_patient_by_code(patient.code)
+        dialog.Destroy()
 
     def _on_open_patient(self, event):
-        self.SetStatusText("Open Patient - Feature in development")
-        message_box("Open Patient feature - Coming soon!", "Info")
+        self.SetStatusText(T("Open Patient"))
+        self._search_and_open_patient()
 
     def _on_search_patient(self, event):
-        self.SetStatusText("Search Patient - Feature in development")
-        message_box("Search Patient feature - Coming soon!", "Info")
+        self.SetStatusText(T("Search Patient"))
+        self._search_and_open_patient()
+
+    def _search_and_open_patient(self):
+        """Search for a patient and open their record."""
+        dialog = SearchPatientDialog(self)
+        if dialog.ShowModal() == wx.ID_OK:
+            patient = dialog.get_selected_patient()
+            if patient:
+                self._open_patient_by_code(patient.code)
+        dialog.Destroy()
+
+    def _open_patient_by_code(self, code: str):
+        """Open a patient by their code."""
+        patient = PatientManager.get_patient(code)
+        if patient:
+            edit_dialog = OpenPatientDialog(self, patient)
+            edit_dialog.ShowModal()
+            edit_dialog.Destroy()
+            self.SetStatusText(f"{T('Patient')}: {patient.surname} {patient.name}")
+        else:
+            wx.MessageBox(T("Patient not found"), T("Error"), wx.OK | wx.ICON_ERROR)
+
+    def _on_import_patients(self, event):
+        """Legacy import no longer needed - patients are read directly from .dat files."""
+        count = PatientManager.get_patient_count()
+        wx.MessageBox(
+            f"Patient management now works directly with .dat files.\n\n"
+            f"Found {count} patients in the Database folder.\n\n"
+            f"Use 'Search Patient' to browse all patients.",
+            T("Patient Information"),
+            wx.OK | wx.ICON_INFORMATION
+        )
+        self.SetStatusText(f"Found {count} patients")
 
     def _on_calendar(self, event):
-        self.SetStatusText("Calendar - Feature in development")
-        message_box("Calendar feature - Coming soon!", "Info")
+        self.SetStatusText(T("Calendar"))
+        dialog = CalendarDialog(self)
+        dialog.ShowModal()
+        dialog.Destroy()
 
     def _on_new_appointment(self, event):
-        self.SetStatusText("New Appointment - Feature in development")
-        message_box("New Appointment feature - Coming soon!", "Info")
+        self.SetStatusText(T("New Appointment"))
+        dialog = NewAppointmentDialog(self)
+        if dialog.ShowModal() == wx.ID_OK:
+            self.SetStatusText(T("Appointment created"))
+        dialog.Destroy()
 
     def _on_daily_statistics(self, event):
-        self.SetStatusText("Daily Statistics - Feature in development")
-        message_box("Daily Statistics feature - Coming soon!", "Info")
+        self.SetStatusText(T("Daily Statistics"))
+        dialog = DailyStatisticsDialog(self)
+        dialog.ShowModal()
+        dialog.Destroy()
 
     def _on_monthly_report(self, event):
-        self.SetStatusText("Monthly Report - Feature in development")
-        message_box("Monthly Report feature - Coming soon!", "Info")
+        self.SetStatusText(T("Monthly Report"))
+        dialog = MonthlyReportDialog(self)
+        dialog.ShowModal()
+        dialog.Destroy()
 
     def _on_settings(self, event):
-        self.SetStatusText("Settings - Feature in development")
-        message_box("Settings feature - Coming soon!", "Info")
+        self.SetStatusText(T("Settings"))
+        dialog = SettingsDialog(self)
+        if dialog.ShowModal() == wx.ID_OK:
+            self.SetStatusText(T("Settings saved"))
+        dialog.Destroy()
 
     def _on_backup(self, event):
-        self.SetStatusText("Backup - Feature in development")
-        message_box("Backup feature - Coming soon!", "Info")
+        self.SetStatusText(T("Backup Database"))
+        dialog = BackupDialog(self)
+        if dialog.ShowModal() == wx.ID_OK:
+            self.SetStatusText(T("Backup completed"))
+        dialog.Destroy()
 
     def _on_logout(self, event):
         if message_box_yes_no("Are you sure you want to logout?", "Confirm Logout"):
@@ -183,7 +247,7 @@ class MainFrame(Window):
         if message_box_yes_no("Are you sure you want to exit?", "Confirm Exit"):
             self.Close()
 
-    def _on_close(self):
+    def _on_close(self, event):
         """Handle window close."""
         return True
 

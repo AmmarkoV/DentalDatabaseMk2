@@ -1,162 +1,154 @@
+#!/usr/bin/env python3
 """
 Dental teeth data management.
 Ported from teeth.pas
 """
+import re
+from pathlib import Path
+from typing import List, Optional, Dict
 from datetime import datetime
-from typing import List, Optional
 
-from models import Tooth
-from database import db
+from models import Tooth, ToothData, ToothAux
+from tools import get_app_path
 
-# Tooth surface designations (Universal/FDI notation)
-SURFACE_CODES = {
-    'M': 'Mesial',
-    'D': 'Distal',
-    'O': 'Occlusal',
-    'B': 'Buccal',
-    'L': 'Lingual',
-    'I': 'Incisal',
+# Surface names (Greek)
+SURFACE_NAMES = {
+    1: "ρίζα",    # Root
+    2: "5y",     # Lingual (lower)
+    3: "2e",     # Mesial
+    4: "2a",     # Distal
+    5: "1",      # Occlusal
+    6: "5p",     # Palatal/Buccal
 }
 
-# Tooth categories by number (FDI notation)
-TOOTH_TYPES = {
-    1: 'Central Incisor',
-    2: 'Lateral Incisor',
-    3: 'Canine',
-    4: 'First Premolar',
-    5: 'Second Premolar',
-    6: 'First Molar',
-    7: 'Second Molar',
-    8: 'Third Molar',
+# Auxiliary tooth codes
+AUX_CODES = {
+    'VIDA': 'Crown',
+    'SEALANT': 'Sealant',
+    'X': 'Extraction',
+    'O.O.': 'Missing',
+    'M.O.': 'Missing',
+    'RIZ_APOKSISI': 'Root Resorption',
+    'RIZA': 'Root Canal',
+    'ENDODONTIKI_THERAPEIA': 'Root Canal',
+    'ARROW': 'Bridge',
 }
+
 
 class TeethManager:
-    """Manages dental teeth data."""
+    """Manages teeth data from .teeth files."""
 
     @staticmethod
-    def get_all_teeth(patient_code: str) -> List[Tooth]:
-        """Get all teeth records for a patient."""
-        # Note: Database layer needs teeth queries added
-        # This is a placeholder implementation
-        return []
+    def get_teeth_file_path(patient_code: str) -> Path:
+        """Get path to patient's .teeth file."""
+        database_dir = get_app_path() / "Database"
+        return database_dir / f"{patient_code}.teeth"
 
     @staticmethod
-    def get_tooth(patient_code: str, tooth_number: int, surface: str = "") -> Optional[Tooth]:
-        """Get specific tooth record."""
-        teeth = TeethManager.get_all_teeth(patient_code)
-        for tooth in teeth:
-            if tooth.tooth_number == tooth_number and tooth.surface == surface:
-                return tooth
+    def parse_teeth_file(filepath: Path) -> tuple[List[ToothAux], List[ToothData]]:
+        """Parse a .teeth file and return aux and data lists."""
+        aux_list: List[ToothAux] = []
+        data_list: List[ToothData] = []
+
+        if not filepath.exists():
+            return aux_list, data_list
+
+        try:
+            content = filepath.read_text(encoding='utf-8')
+        except UnicodeDecodeError:
+            try:
+                content = filepath.read_text(encoding='windows-1253')
+            except:
+                return aux_list, data_list
+
+        for line in content.strip().split('\n'):
+            line = line.strip()
+            if not line:
+                continue
+
+            # TEETH_AUX(tooth_num,aux_code)
+            aux_match = re.match(r'^TEETH_AUX\((\d+),([^,]+)\)$', line)
+            if aux_match:
+                tooth_num = int(aux_match.group(1))
+                aux_code = aux_match.group(2)
+                aux_list.append(ToothAux(tooth_number=tooth_num, aux_code=aux_code))
+                continue
+
+            # TEETH_DATA(tooth_num,part_num,doctor,work,comments,technical,status)
+            data_match = re.match(r'^TEETH_DATA\((\d+),(\d+),([^,]*),([^,]*),([^,]*),([^,]*),(.*)\)$', line)
+            if data_match:
+                tooth_num = int(data_match.group(1))
+                part_num = int(data_match.group(2))
+                doctor = data_match.group(3)
+                work = data_match.group(4)
+                comments = data_match.group(5)
+                technical = data_match.group(6)
+                status = data_match.group(7)
+                data_list.append(ToothData(
+                    tooth_number=tooth_num,
+                    part=part_num,
+                    doctor=doctor,
+                    work=work,
+                    comments=comments,
+                    technical=technical,
+                    status=status
+                ))
+                continue
+
+            # TEETH_COLOR(tooth_num,part_num,R,G,B)
+            color_match = re.match(r'^TEETH_COLOR\((\d+),(\d+),(\d+),(\d+),(\d+)\)$', line)
+            if color_match:
+                tooth_num = int(color_match.group(1))
+                part_num = int(color_match.group(2))
+                r = int(color_match.group(3))
+                g = int(color_match.group(4))
+                b = int(color_match.group(5))
+                # Find existing tooth data and update color
+                for td in data_list:
+                    if td.tooth_number == tooth_num and td.part == part_num:
+                        td.color_r = r
+                        td.color_g = g
+                        td.color_b = b
+                        break
+
+        return aux_list, data_list
+
+    @staticmethod
+    def get_patient_teeth(patient_code: str) -> tuple[List[ToothAux], List[ToothData]]:
+        """Get all teeth data for a patient."""
+        teeth_file = TeethManager.get_teeth_file_path(patient_code)
+        return TeethManager.parse_teeth_file(teeth_file)
+
+    @staticmethod
+    def get_tooth_aux(tooth_number: int, aux_list: List[ToothAux]) -> Optional[ToothAux]:
+        """Get auxiliary data for a tooth."""
+        for aux in aux_list:
+            if aux.tooth_number == tooth_number:
+                return aux
         return None
 
     @staticmethod
-    def create_tooth(
-        patient_code: str,
-        tooth_number: int,
-        surface: str = "",
-        treatment_type: str = "",
-        notes: str = "",
-        treatment_date: datetime = None,
-        doctor_code: str = ""
-    ) -> Optional[Tooth]:
-        """Create a new tooth record."""
-        tooth = Tooth(
-            patient_code=patient_code,
-            tooth_number=tooth_number,
-            surface=surface,
-            notes=notes,
-            treatment_date=treatment_date or datetime.now(),
-            doctor_code=doctor_code
-        )
-
-        # Set treatment type flags
-        treatment_lower = treatment_type.lower()
-        if 'filling' in treatment_lower or 'συμπλήρωμα' in treatment_lower:
-            tooth.filling = True
-        if 'crown' in treatment_lower or 'στέμμα' in treatment_lower:
-            tooth.crown = True
-        if 'bridge' in treatment_lower or 'γέφυρα' in treatment_lower:
-            tooth.bridge = True
-        if 'implant' in treatment_lower or ' εμφύτευμα' in treatment_lower:
-            tooth.implant = True
-        if 'extraction' in treatment_lower or 'εκχύλιση' in treatment_lower:
-            tooth.extraction = True
-        if 'root canal' in treatment_lower or 'ρίζα' in treatment_lower:
-            tooth.root_canal = True
-        if 'scaling' in treatment_lower or 'κλίμακα' in treatment_lower:
-            tooth.scaling = True
-
-        # TODO: Add database insert
-        return tooth
+    def get_tooth_surfaces(tooth_number: int, data_list: List[ToothData]) -> List[ToothData]:
+        """Get all surface data for a tooth."""
+        return [td for td in data_list if td.tooth_number == tooth_number]
 
     @staticmethod
-    def update_tooth(
-        patient_code: str,
-        tooth_number: int,
-        surface: str = "",
-        **kwargs
-    ) -> bool:
-        """Update tooth record."""
-        tooth = TeethManager.get_tooth(patient_code, tooth_number, surface)
-        if not tooth:
-            return False
-
-        for key, value in kwargs.items():
-            if hasattr(tooth, key):
-                setattr(tooth, key, value)
-
-        # TODO: Add database update
-        return True
+    def get_aux_description(aux_code: str) -> str:
+        """Get human-readable description for aux code."""
+        return AUX_CODES.get(aux_code.upper(), aux_code)
 
     @staticmethod
-    def delete_tooth(patient_code: str, tooth_number: int, surface: str = "") -> bool:
-        """Delete tooth record."""
-        # TODO: Add database delete
-        return True
+    def get_surface_name(part: int) -> str:
+        """Get surface name for part number."""
+        return SURFACE_NAMES.get(part, f"Part {part}")
 
     @staticmethod
-    def mark_tooth_missing(patient_code: str, tooth_number: int) -> bool:
-        """Mark tooth as missing."""
-        return TeethManager.update_tooth(
-            patient_code, tooth_number,
-            missing=True
-        )
-
-    @staticmethod
-    def mark_tooth_impacted(patient_code: str, tooth_number: int) -> bool:
-        """Mark tooth as impacted."""
-        return TeethManager.update_tooth(
-            patient_code, tooth_number,
-            impacted=True
-        )
-
-    @staticmethod
-    def mark_tooth_decayed(patient_code: str, tooth_number: int) -> bool:
-        """Mark tooth as having decay."""
-        return TeethManager.update_tooth(
-            patient_code, tooth_number,
-            decayed=True
-        )
-
-    @staticmethod
-    def get_tooth_type_name(tooth_number: int) -> str:
-        """Get human-readable tooth type name."""
-        # Extract tooth type from FDI notation
-        # FDI: first digit = quadrant, second digit = tooth type (1-8)
+    def get_quadrant(tooth_number: int) -> str:
+        """Get quadrant for FDI tooth number."""
         if tooth_number < 10:
-            tooth_type = tooth_number
+            quadrant = tooth_number
         else:
-            tooth_type = tooth_number % 10
-
-        return TOOTH_TYPES.get(tooth_type, "Unknown")
-
-    @staticmethod
-    def get_quadrant_name(fdi_number: int) -> str:
-        """Get quadrant name from FDI number."""
-        if fdi_number < 10:
-            quadrant = fdi_number
-        else:
-            quadrant = fdi_number // 10
+            quadrant = tooth_number // 10
 
         quadrants = {
             1: "Upper Right",
@@ -167,84 +159,56 @@ class TeethManager:
         return quadrants.get(quadrant, "Unknown")
 
     @staticmethod
-    def get_surface_name(code: str) -> str:
-        """Get surface name from code."""
-        return SURFACE_CODES.get(code, code)
+    def get_tooth_type(tooth_number: int) -> str:
+        """Get tooth type for FDI tooth number."""
+        if tooth_number < 10:
+            tooth_type = tooth_number
+        else:
+            tooth_type = tooth_number % 10
 
-    @staticmethod
-    def format_tooth_display(tooth: Tooth) -> str:
-        """Format tooth information for display."""
-        lines = [
-            f"Tooth: {tooth.tooth_number} ({TeethManager.get_tooth_type_name(tooth.tooth_number)})",
-            f"Surface: {tooth.surface}" if tooth.surface else None,
-        ]
-
-        treatments = []
-        if tooth.filling:
-            treatments.append("Filling")
-        if tooth.crown:
-            treatments.append("Crown")
-        if tooth.bridge:
-            treatments.append("Bridge")
-        if tooth.implant:
-            treatments.append("Implant")
-        if tooth.root_canal:
-            treatments.append("Root Canal")
-        if tooth.extraction:
-            treatments.append("Extraction")
-
-        if treatments:
-            lines.append(f"Treatments: {', '.join(treatments)}")
-
-        if tooth.missing:
-            lines.append("Status: Missing")
-        if tooth.impacted:
-            lines.append("Status: Impacted")
-        if tooth.decayed:
-            lines.append("Status: Decayed")
-
-        if tooth.notes:
-            lines.append(f"Notes: {tooth.notes}")
-
-        return "\n".join(line for line in lines if line)
-
-    @staticmethod
-    def get_patient_teeth_summary(patient_code: str) -> dict:
-        """Get summary of patient's dental status."""
-        teeth = TeethManager.get_all_teeth(patient_code)
-
-        summary = {
-            'total_treated': 0,
-            'fillings': 0,
-            'crowns': 0,
-            'bridges': 0,
-            'implants': 0,
-            'extractions': 0,
-            'root_canals': 0,
-            'missing': 0,
-            'impacted': 0,
-            'decayed': 0,
+        types = {
+            1: "Central Incisor",
+            2: "Lateral Incisor",
+            3: "Canine",
+            4: "First Premolar",
+            5: "Second Premolar",
+            6: "First Molar",
+            7: "Second Molar",
+            8: "Third Molar",
         }
+        return types.get(tooth_type, "Unknown")
 
-        for tooth in teeth:
-            summary['total_treated'] += 1
-            if tooth.filling:
-                summary['fillings'] += 1
-            if tooth.crown:
-                summary['crowns'] += 1
-            if tooth.bridge:
-                summary['bridges'] += 1
-            if tooth.implant:
-                summary['implants'] += 1
-            if tooth.extraction:
-                summary['extractions'] += 1
-            if tooth.root_canal:
-                summary['root_canals'] += 1
-            if tooth.missing:
-                summary['missing'] += 1
-            if tooth.impacted:
-                summary['impacted'] += 1
-            if tooth.decayed:
-                summary['decayed'] += 1
+    @staticmethod
+    def save_teeth_file(
+        patient_code: str,
+        aux_list: List[ToothAux],
+        data_list: List[ToothData]
+    ) -> bool:
+        """Save teeth data to .teeth file."""
+        teeth_file = TeethManager.get_teeth_file_path(patient_code)
 
-        return summary
+        try:
+            lines = []
+
+            # Write aux data
+            for aux in aux_list:
+                lines.append(f"TEETH_AUX({aux.tooth_number},{aux.aux_code})")
+
+            # Write surface data
+            for td in data_list:
+                line = f"TEETH_DATA({td.tooth_number},{td.part},{td.doctor},{td.work},{td.comments},{td.technical},{td.status})"
+                lines.append(line)
+
+                # Write color if set
+                if td.color_r > 0 or td.color_g > 0 or td.color_b > 0:
+                    lines.append(f"TEETH_COLOR({td.tooth_number},{td.part},{td.color_r},{td.color_g},{td.color_b})")
+
+            teeth_file.write_text('\n'.join(lines) + '\n', encoding='utf-8')
+            return True
+        except Exception as e:
+            print(f"Error saving teeth file: {e}")
+            return False
+
+
+# Legacy compatibility - keep old TeethManager methods for Tooth model
+# These are placeholders for future SQLite integration
